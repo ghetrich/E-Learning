@@ -1,0 +1,9 @@
+
+{
+"ROLE_STUDENT" : "student",
+"ROLE_TECHER": "teacher",
+"ROLE_COMMUNITY_ADMIN": "administrator",
+"ROLE_PRIVATE_TUTOR": "tutor",
+"ROLE_SYSTEM_ADMIN": "systemadministrator"
+
+}

@@ -1,0 +1,95 @@
+<!--[if lt IE 8]>
+	<p class="browserupgrade">
+		You are using an <strong>outdated</strong> browser. Please
+		<a href="http://browsehappy.com/">upgrade your browser</a> to improve your
+		experience.
+	</p>
+<![endif]-->
+<!-- 404 Page area Start-->
+
+<div class="error-page-area">
+	<div class="error-page-wrap">
+		<i class="notika-icon notika-close"></i>
+		<h2>
+			ACTIVATION
+			<!-- <span class="counter">404</span> -->
+		</h2>
+		<%= error %>
+		<p>
+			Sorry, but the page you are looking is out of bounds. Try checking the
+			URL for an error, then hit the refresh button on your browser or try
+			found something else in our app.
+		</p>
+
+		<form  action="/user/activation" id="activation-form" method="post">
+			<div class="input-group">
+				<span class="input-group-addon nk-ic-st-pro"
+					><i class="notika-icon notika-edit"></i
+				></span>
+				<div class="nk-int-st">
+					<input
+						type="password"
+						name="password"
+						id="password"
+						class="form-control"
+						placeholder="Password"
+					/>
+				</div>
+			</div>
+			<div class="input-group mg-t-15">
+				<span class="input-group-addon nk-ic-st-pro"
+					><i class="notika-icon notika-edit"></i
+				></span>
+				<div class="nk-int-st">
+					<input
+						type="password"
+						name="con_password"
+						id="con-password"
+						class="form-control"
+						placeholder="Confirm Password"
+					/>
+				</div>
+			</div>
+
+			<button role="button" type="submit" class="btn">Save Changes</button>
+			<a href="#" class="btn error-btn-mg">Report Problem</a>
+		</form>
+	</div>
+</div>
+<!-- 404 Page area End-->
+<script>
+	const form = document.getElementById("activation-form");
+
+	form.addEventListener("submit", registerUser);
+
+	async function registerUser(e) {
+		e.preventDefault();
+
+		const password = document.getElementById("password").value;
+		const con_password = document.getElementById("con-password").value;
+		// const username = document.getElementById("username").value;
+		// const password = document.getElementById("password").value;
+
+		const result = await fetch("/user/activation", {
+			method: "POST",
+			headers: {
+				"Content-type": "application/json",
+			},
+			body: JSON.stringify({
+				password,
+				con_password,
+			}),
+		})
+			.then(response => response.json())
+			.catch(error => {
+				alert(error);
+			});
+		if (result.status === "OK") {
+			console.log(result.data);
+			// alert(result);
+			window.location = `/control?status=activated`;
+		} else {
+			alert(result.error);
+		}
+	}
+</script>

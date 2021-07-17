@@ -3,17 +3,6 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<div class="row" style="margin-bottom: 40px; margin-top: 30px">
-					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3"></div>
-					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
-						<div class="breadcomb-report-new">
-							<button class="btn btn-icon-notika" id="toCommunity">
-								<i class="notika-icon notika-left-arrow"></i> Go Back
-							</button>
-						</div>
-					</div>
-				</div>
-
 				<div class="breadcomb-list">
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -23,24 +12,40 @@
 								</div>
 
 								<div class="breadcomb-ctn">
-									<h2><%= community.name %></h2>
+									<h2>
+										<%= community.name %>
+									</h2>
 									<p>
-										Welcome to Free SHS
-										<span class="bread-ntd">Our Communities</span>
+										@<%= community.alias %>
+											<span class="">~ <i>
+													<%= community.slogan %>
+												</i></span>
+									</p>
+									<p>
+										Ghana, <%= community.address.region %>
+											<span class="">Region</span>
+									</p>
+									<p>
+										<i class="fa fa-map-marker"></i>
+										<span class="">
+											<%= community.address.city %>
+										</span>
 									</p>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
 							<div class="breadcomb-report">
-								<button
+								<img src="<%= logo %>" alt="Logo" srcset="" width="100px" height="100px" />
+								<!-- <button
 									data-toggle="tooltip"
 									data-placement="left"
 									title="Download Report"
 									class="btn"
 								>
+								
 									<i class="notika-icon notika-sent"></i>
-								</button>
+								</button> -->
 							</div>
 						</div>
 					</div>
@@ -49,6 +54,7 @@
 		</div>
 	</div>
 </div>
+
 <!-- Breadcomb area End-->
 
 <!-- Tooltips area Start-->
@@ -57,41 +63,105 @@
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="tooltips-inner">
-					<div class="tooltips-hd tooltips-hdn">
-						<h2>Server Error</h2>
+					<!-- ==================== -->
+					<!--    DOMAIN AREA START -->
+					<div class="tooltips-hd tooltips-hdn ">
+						<h2>Domain</h2>
 
-						<p>afggda</p>
+						<p>
+							<span class="mr-30">
+								<%= community.domain %>
+							</span>
+							<span class=""><a type="button" data-toggle="modal" data-target="#changeDomain"
+									class="a-underline">Change&nbsp;Domain</a></span>
+						</p>
 					</div>
+					<div class="modal fade" id="changeDomain" role="dialog">
+						<div class="modal-dialog modals-default">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">
+										&times;
+									</button>
+								</div>
+								<div class="modal-body">
+									<!-- <h2>Change Domain</h2>
+									<p>
+										Curabitur blandit mollis lacus. Nulla sit amet
+										est. Suspendisse nisl elit, rhoncus eget,
+										elementum ac, condimentum eget, diam.
+									</p> -->
+
+
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<div class="form-element-list mg-t-30">
+												<div class="cmp-tb-hd">
+													<h2>Change Domain</h2>
+													<p>You may use the extra sizing classes
+														(<code><%= community.domain%> </code>) to change size of the
+														feilds.</p>
+												</div>
+												<div class="row">
+													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+														<div class="form-group ic-cmp-int int-bg-it form-elet-mg">
+															<div class="form-ic-cmp">
+																<i class="notika-icon notika-wifi"></i>
+															</div>
+															<div class="nk-int-st">
+																<input type="text" class="form-control input-lg"
+																	Placeholder="Enter old domain">
+															</div>
+														</div>
+													</div>
+													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+														<div class="form-group ic-cmp-int int-bg-it form-elet-mg">
+															<div class="form-ic-cmp">
+																<i class="notika-icon notika-wifi"></i>
+															</div>
+															<div class="nk-int-st">
+																<input type="text" class="form-control input-lg"
+																	Placeholder="Enter new domain">
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">
+										Save changes
+									</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">
+										Close
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- DOMAIN AREA END -->
+					<!-- =============== -->
+
 					<div class="tooltips-ctn">
 						<h4>Hover over the links below to see tooltips.</h4>
 						<p>
 							Tight pants next level
-							<a href="#" data-toggle="tooltip" title="Another tooltip"
-								>keffiyeh</a
-							>
+							<a href="#" data-toggle="tooltip" title="Another tooltip">keffiyeh</a>
 							you probably haven't heard of them. Photo booth beard raw
 							denim
-							<a href="#" data-toggle="tooltip" title="Another tooltip"
-								>letterpress</a
-							>
+							<a href="#" data-toggle="tooltip" title="Another tooltip">letterpress</a>
 							vegan messenger bag stumptown. Farm-to-table seitan,
 							mcsweeney's fixie sustainable quinoa 8-bit american apparel
 							have a terry richardson vinyl
-							<a
-								href="#"
-								data-toggle="tooltip"
-								title="Another one here too"
-								>chambray</a
-							>. Beard stumptown, cardigans banh mi lomo thundercats.
+							<a href="#" data-toggle="tooltip" title="Another one here too">chambray</a>. Beard
+							stumptown, cardigans banh mi lomo thundercats.
 							Tofu biodiesel williamsburg marfa, four loko mcsweeney's
 							cleanse vegan chambray. A really ironic artisan whatever
 							keytar,
-							<a
-								href="#"
-								data-toggle="tooltip"
-								title="Another one here too"
-								>scenester</a
-							>
+							<a href="#" data-toggle="tooltip" title="Another one here too">scenester</a>
 							farm-to-table banksy Austin twitter handle freegan cred raw
 							denimangersa single-origin coffee viral.
 						</p>

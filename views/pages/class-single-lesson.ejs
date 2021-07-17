@@ -1,0 +1,140 @@
+<div class="view-mail-list sm-res-mg-t-30">
+	<div class="view-mail-hd">
+		<div class="view-mail-hrd">
+			<h2><%=lesson.title%></h2>
+		</div>
+		<div class="view-ml-rl">
+			<p>(<%=moment(lesson.lesson.createdAt).fromNow() %>)</p>
+		</div>
+	</div>
+	<div class="mail-ads mail-vw-ph">
+		<h4 class="first-ph"><b>Sub Title: </b><%=lesson.lesson.subTitle%></h4>
+		<!-- <p><b>Email:</b> <a href="#">example.@email.com</a></p> -->
+		<p class="last-ph">
+			<b>Created On:</b> <%= moment(lesson.lesson.createdAt).format("LLLL")
+			%>
+		</p>
+	</div>
+
+	<!-- <div class="inbox-btn-st-ls btn-toolbar">
+	<div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+			<button class="btn btn-default btn-sm">
+				<i class="notika-icon notika-refresh"></i> Refresh
+			</button>
+
+			<button id="btn-check-all" class="btn btn-default btn-sm">
+				<i class="notika-icon notika-checked"></i>
+			</button>
+		</div>
+		<div class="btn-group ib-btn-gp active-hook nk-act nk-email-inbox">
+			<button id="btn-remove-checked" class="btn btn-default btn-sm">
+				<i class="notika-icon notika-trash"></i> Edit</button>
+		</div>
+	</div> -->
+
+	<div class="view-mail-atn" id="contentContainer">
+		<%-lesson.lesson.body%>
+	</div>
+
+	<% if(lesson.lesson.readingMaterials.length > 0){%>
+	<div class="file-download-system">
+		<div class="dw-st-ic mg-t-20">
+			<div class="dw-atc-sn">
+				<span
+					><i class="notika-icon notika-paperclip"></i>
+					<%=lesson.lesson.readingMaterials.length%>
+					attachment<%if(lesson.lesson.readingMaterials.length >
+					1){%>s<%}%>
+					<i class="notika-icon notika-arrow-right atc-sign"></i
+				></span>
+			</div>
+			<div class="dw-atc-sn">
+				<a class="btn dw-al-ft" href="#" onclick="downloadMaterials()"
+					>Download <%if(lesson.lesson.readingMaterials.length >
+					1){%>all<%}%> in zip format
+					<i class="notika-icon notika-file"></i
+				></a>
+			</div>
+		</div>
+	</div>
+	<%}else{%>
+	<!-- <h1>Null</h1> -->
+	<%}%>
+
+	<div class="vw-ml-action-ls text-right mg-t-20">
+		<div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+			<a href="/getClass/<%=classId%>/lesson/<%=topicId%>/edit/<%=lesson.lesson._id%>" class="btn btn-default btn-sm waves-effect">
+				<i class="notika-icon notika-next"></i> Edit
+			</a>
+			<!-- <button class="btn btn-default btn-sm waves-effect">
+				<i class="notika-icon notika-right-arrow"></i> Forward
+			</button> -->
+			<button class="btn btn-default btn-sm waves-effect">
+				<i class="notika-icon notika-print"></i> Restrict
+			</button>
+			<%if(user._id != classDetails.teacher._id && user._id
+														!= lesson.lesson.createdBy){%>
+
+														<%}else{%>
+			<button class="btn btn-default btn-danger-hover btn-sm waves-effect" id="deleteBtn">
+				<i class="notika-icon notika-trash"></i> Remove
+			</button>
+			<%}%>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var deleteBtn = document.getElementById("deleteBtn");
+
+	const deleteFunc = async () => {
+		swal({
+			title: "Are you sure?",
+			text: "All unsaved information provided will be lost!",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes, Delete it!",
+			closeOnConfirm: true,
+		})
+			.then(async () => {
+				const deleteReq = await fetch(
+					`<%=baseUrl %>/topics/<%=topicId%>/lesson/delete/<%=contentId%>`,
+					{
+						method: "DELETE",
+					}
+				).then(response => response.json());
+
+				if (deleteReq.status === "OK") {
+					localStorage.setItem("lesson-deleted", true);
+					setTimeout(() => {
+						swal({
+							title: "Done",
+							text: "Lesson deleted.",
+							type: "success",
+						})
+							.then(() => {
+								
+								window.location = "/getClass/lessons/<%=classId%>";
+							})
+							.catch(() => {
+								
+								window.location = "/getClass/lessons/<%=classId%>";
+							});
+					}, 1000);
+				} else {
+					alert(deleteReq.error);
+					// console.log(deleteReq.error);
+					sweetAlert("Sorry", "You forgot to enter todo text", "error");
+				}
+			})
+			.catch(err => {
+				console.log("cancelled");
+			});
+	};
+	deleteBtn.addEventListener("click", deleteFunc);
+
+	const downloadMaterials = () => {
+		alert("Download materials");
+	};
+</script>

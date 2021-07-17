@@ -1,0 +1,97 @@
+
+<!-- Breadcomb area Start-->
+<div class="breadcomb-area">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="breadcomb-list">
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<div class="breadcomb-wp">
+							<div class="breadcomb-icon">
+								<i class="notika-icon notika-windows"></i>
+							</div>
+
+							<div class="breadcomb-ctn">
+								<h2><%=classDetails.name%></h2>
+								<p>
+									Welcome to Free SHS
+									<span class="bread-ntd">configure a Whole New Community</span>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+						<div class="breadcomb-report">
+							<button data-toggle="tooltip" data-placement="left" title="Download Report" class="btn">
+								<i class="notika-icon notika-sent"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Breadcomb area End-->
+
+ <div class="tab-content custom-menu-content mg-b-15">
+                       
+                        <div id="Courses" class="tab-pane <% if(currentRoute === 'Classes'){%> active <%}%> notika-tab-menu-bg animated flipInX">
+                            <ul class="notika-main-menu-dropdown">
+                                <li><a href="/student/topics/<%=classId%>">Lessons</a>
+                                </li>
+								<li><a href="/student/<%=classId%>/announcements/">Announcements</a>
+                                </li>
+								<li><a href="/student/classes">Quizzes</a>
+                                </li>
+								<li><a href="/student/classes">My Courses</a>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                      
+                    </div>
+
+<%if(announcements.length > 0){%>
+
+    <%for(var announcement of announcements){
+       
+        
+        %>
+
+        <!-- <%=announcement.read.includes(user._id)%> -->
+<!-- Breadcomb area Start-->
+<div class="breadcomb-area clickable">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="breadcomb-list  <%if(!read(announcement.read,user._id)){%>unread<%}%>">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<a href="/student/<%=classId%>/announcement/<%=announcement._id%>"class="breadcomb-wp">
+							<div class="breadcomb-icon">
+								<!-- <i class="notika-icon notika-app"></i> -->
+								<img
+									src="<%=announcement.image%>"
+									alt=""
+									width="100px"
+									height="100px"
+								/>
+							</div>
+							<div class="breadcomb-ctn">
+								<h2 class="txt-uppercase"><%=trunc(announcement.header, 85 , "...")%></h2>
+								<p>
+								<%=trunc(announcement.message, 200 , "...")%>									
+								</p>
+                                <br/>
+                                <p class="notifyAt"><%=moment(announcement.createdAt).from()%></p>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Breadcomb area End-->
+<%}%>
+<%}%>

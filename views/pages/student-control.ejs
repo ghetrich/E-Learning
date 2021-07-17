@@ -1,0 +1,81 @@
+<!-- Breadcomb area Start-->
+<div class="breadcomb-area">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="breadcomb-list">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="breadcomb-wp">
+                            <div class="breadcomb-icon">
+                                <i class="notika-icon notika-windows"></i>
+                            </div>
+
+                            <div class="breadcomb-ctn">
+                                <h2>
+                                    Dashboard
+                                </h2>
+                                <p>
+                                    Welcome to Free SHS
+                                    <span class="bread-ntd">configure a Whole New Community</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+                        <div class="breadcomb-report">
+                            <button data-toggle="tooltip" data-placement="left" title="Download Report" class="btn">
+                                <i class="notika-icon notika-sent"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcomb area End-->
+
+<!-- Start Email Statistic area-->
+<div class="notika-email-post-area">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+				<div class="email-statis-inner notika-shadow">
+					<div class="email-ctn-round">
+						<div class="email-rdn-hd">
+							<h2 class="text-align-center"><%= community.name %></h2>
+						</div>
+						
+						<div class="xkull-badge">
+                            <img src="<%= logo %>" alt="Logo" width="200px" height="200px"/>
+                        </div>
+
+                        <div class="email-rdn-hd">
+							<h5><%= community.slogan %></h2>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+<!-- new card can be placed here -->
+
+		</div>
+	</div>
+</div>
+<!-- End Email Statistic area-->
+
+
+<script>
+	window.onload = function () {
+        var activatedDialog = document.getElementById("sa-active")        
+            // var url = window.location.href
+            const newURI = new URL(window.location.href)
+            var isActivated = newURI.searchParams.get('status')
+        
+        if (isActivated == 'activated') {
+            activatedDialog.click()
+            
+        }
+		
+	};
+</script>

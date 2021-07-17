@@ -1,0 +1,65 @@
+<a
+	href=""
+	id="lessonDel"
+	class="btn btn-info"
+	data-title="Lesson Deleted : "
+	data-msg=" You've just a lessons."
+	data-type="inverse"
+	data-animation-in="animated fadeInUp"
+	data-animation-Out="animated fadeOutUp"
+	style="display: none"
+></a>
+
+<%if(topics.length > 0){%> <%for(var topic of topics){%>
+<div class="btn-demo-notika mg-t-30 mg-b-15">
+	<div class="notika-btn-hd">
+		<h4><%=topic.title%></h4>
+		<p>
+			Combine sets of <code>.btn-group</code> into a
+			<code>.btn-toolbar</code> for more complex components.
+		</p>
+	</div>
+
+	<div class="btn-toolbar" role="toolbar">
+		<div class="btn-group notika-tl-btn mg-b-10">
+			<a
+				href="/getClass/<%=classId%>/lesson/new/<%=topic._id%>"
+				class="btn btn-default notika-gp-primary"
+				>New Lesson</a
+			>
+		</div>
+		<%if(topic.contents.length > 0){%> <%for(var content of topic.contents){%>
+		<div class="btn-group notika-tl-btn mg-b-10">
+			<a
+				href="/getClass/<%=classId%>/topic/<%=topic._id%>/lesson/<%=content._id%>"
+				class="btn btn-primary notika-gp-primary"
+				><%=content.subTitle%></a
+			>
+		</div>
+		<%}%> <%}%>
+	</div>
+</div>
+<%}%> <%}else{%>
+<div>Nothing</div>
+<%}%>
+
+
+<script type="text/javascript">
+
+	var lessonDeleted = localStorage.getItem("lesson-deleted");
+		if (lessonDeleted != null && lessonDeleted) {
+			// sweetAlert("Successful", "Lesson has been deleted", "success");	
+			localStorage.removeItem("lesson-deleted");
+			$("#lessonDel").click();
+			
+		}
+	// window.onload = () => {
+	// 	var lessonDeleted = localStorage.getItem("lesson-deleted");
+	// 	if (lessonDeleted != null && lessonDeleted) {
+	// 		// sweetAlert("Successful", "Lesson has been deleted", "success");	
+	// 		localStorage.removeItem("lesson-deleted");
+	// 		$("#lessonDel").click();
+			
+	// 	}
+	// };
+</script>

@@ -1,0 +1,85 @@
+<%if(user.previlege=="Student" ){%>
+	<!-- Breadcomb area Start-->
+	<div class="breadcomb-area">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="breadcomb-list">
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+							<div class="breadcomb-wp">
+								<div class="breadcomb-icon">
+									<i class="notika-icon notika-windows"></i>
+								</div>
+
+								<div class="breadcomb-ctn">
+									<h2>My Assisting Classes</h2>
+									<p>
+										Welcome to Free SHS
+										<span class="bread-ntd">configure a Whole New Community</span>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+							<div class="breadcomb-report">
+								<button data-toggle="tooltip" data-placement="left" title="Download Report" class="btn">
+									<i class="notika-icon notika-sent"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Breadcomb area End-->
+	<%}%>
+
+
+		<div class="modals-list">
+			<div class="modals-single">
+				<div class="class-image">
+					<img src="<%= baseUrl%>/<%= classDetails.image%>" alt="" width="100%" height="290px" />
+				</div>
+			</div>
+			<div class="modals-hd mg-t-30">
+				<h2>Overview</h2>
+				<p>
+					<%= classDetails.description%>
+				</p>
+			</div>
+
+			<div class="tpgp-al-cl mg-t-20">
+				<h3>Topics</h3>
+				<%if(topics.length> 0){%>
+
+					<ul class="tpgp-ctm-angle">
+						<%for(var topic of topics){%>
+							<li><i class="notika-icon notika-star"></i>
+								<%=topic.title%>
+							</li>
+							<%}%>
+					</ul>
+					<%}else{%>
+						<p>NO topic found</p>
+						<%}%>
+			</div>
+			<div class="vw-ml-action-ls text-right mg-t-20">
+				<%if(user.previlege=="Student" ){%>
+					<div class="btn-group ib-btn-gp active-hook nk-email-inbox mg-t-20">
+						<a href="/student/classes/" class="btn btn-primary btn-md waves-effect">
+							<i class="notika-icon notika-left-arrow"></i> Go Back
+						</a>
+
+					</div>
+					<%}else{%>
+						<div class="btn-group ib-btn-gp active-hook nk-email-inbox mg-t-20">
+							<a href="/getClass/edit/<%=classId%>" class="btn btn-primary btn-md waves-effect">
+								<i class="notika-icon notika-right-arrow"></i> Make Changes
+							</a>
+
+						</div>
+						<%}%>
+
+			</div>
+		</div>

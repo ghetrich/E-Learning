@@ -17,9 +17,9 @@ Router.route("/google/callback").get(
 	}
 );
 
-Router.route("/logout").get((req, res) => {	
+Router.get("/logout", (req, res) => {
 	req.logout();
-	res.redirect("/control");
+	res.redirect(req.headers.referer);
 });
 
 module.exports = Router;

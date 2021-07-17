@@ -1,6 +1,6 @@
 const Router = require("express").Router();
 const Community = require("../model/community");
-const upload = require("../middleware/upload");
+const uploadLogo = require("../middleware/upload");
 
 Router.route("/all").get((req, res) => {
 	Community.find()
@@ -12,12 +12,35 @@ Router.route("/all").get((req, res) => {
 		});
 });
 
-Router.route("/single/:community").get((req, res) => {
-
-	const communityId = req.params.community
+Router.route("/get/domain/:community").get((req, res) => {
+	const communityId = req.params.community;
 
 	if (communityId === undefined || communityId === "") {
-		return res.status(400).send({ status: "BAD", error:"Cannot find community with id" + communityId });
+		return res.status(400).send({
+			status: "BAD",
+			error: "Cannot find community with id" + communityId,
+		});
+	}
+
+	Community.findById(communityId)
+		.select("domain")
+		.then(community => {
+			return res.status(200).send( community.domain);
+		})
+		.catch(error => {
+			res.status(404).send(error);
+		});
+});
+
+
+Router.route("/single/:community").get((req, res) => {
+	const communityId = req.params.community;
+
+	if (communityId === undefined || communityId === "") {
+		return res.status(400).send({
+			status: "BAD",
+			error: "Cannot find community with id" + communityId,
+		});
 	}
 
 	Community.findById(communityId)
@@ -29,10 +52,9 @@ Router.route("/single/:community").get((req, res) => {
 		});
 });
 
-Router.route("/new").post(upload.single("logo"), (req, res) => {
-	console.log(req.body);
-	const { name, alias, slogan } = req.body;
-
+Router.route("/new").post(uploadLogo.single("logo"), (req, res) => {
+	const { name, alias, slogan, officialMail, domain } = req.body;
+	let logo;
 	const address = {
 		telephone: req.body.telephone,
 		region: req.body.region,
@@ -45,20 +67,29 @@ Router.route("/new").post(upload.single("logo"), (req, res) => {
 		!slogan ||
 		!address.city ||
 		!address.telephone ||
-		!address.region
+		!address.region ||
+		!officialMail ||
+		!domain
 	) {
-		return res.status(404).send({ message: "all field are required" });
+		return res.status(404).send({
+			status: "BAD",
+			error: "All fields are required",
+		});
 	}
+
 	const newCommunity = new Community({
 		name,
 		alias,
 		slogan,
 		address,
+		officialMail,
+		domain,
+		logo,
 	});
-
-    if (req.file) {
-        
-        newCommunity.logo = req.file.pathname
+	if (req.file) {
+		newCommunity.logo = req.file.path;
+	} else {
+		newCommunity.logo = "uploadsimageslogos\1616419240250.jpg";
 	}
 
 	Community.find({ name })

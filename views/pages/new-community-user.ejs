@@ -1,0 +1,377 @@
+<!-- Breadcomb area Start-->
+<div class="breadcomb-area">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="breadcomb-list">
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+							<div class="breadcomb-wp">
+								<div class="breadcomb-icon">
+									<i class="notika-icon notika-windows"></i>
+								</div>
+
+								<div class="breadcomb-ctn">
+									<h2>Create New User</h2>
+									<p>
+										Welcome to Free SHS
+										<span class="bread-ntd"
+											>configure a Whole New Community</span
+										>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+							<div class="breadcomb-report">
+								<button
+									data-toggle="tooltip"
+									data-placement="left"
+									title="Download Report"
+									class="btn"
+								>
+									<i class="notika-icon notika-sent"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Breadcomb area End-->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div
+				class="
+					alert alert-danger alert-dismissible alert-mg-b-0
+					error-dialog-d-none
+				"
+				role="alert"
+				id="error-dialog"
+			>
+				<button
+					type="button"
+					class="close"
+					data-dismiss="alert"
+					aria-label="Close"
+				>
+					<span aria-hidden="true"
+						><i class="notika-icon notika-close"></i
+					></span>
+				</button>
+				Oh snap! Change a few things up and try submitting again.
+			</div>
+		</div>
+		<div
+			class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+			style="display: none"
+		>
+			<!-- <div class="notification-inner">
+				<div class="notification-demo animate-nt mg-t-20">
+					<button
+						class="btn btn-info"
+						data-type="success"
+						data-animation-in="animated bounceIn"
+						id="createUserResponse"
+						data-animation-Out="animated bounceOut"
+						data-title=" User Saved : "
+						data-msg="DropzoneJS is an open source library that provides Drag and Drop file uploads with image previews"
+					></button>
+				</div>
+			</div> -->
+		</div>
+	</div>
+</div>
+
+<button class="btn btn-info" id="submitOkay" style="display: none">
+	Click me
+</button>
+
+<form id="userForm">
+	<!-- Form Element area Start-->
+	<div class="form-element-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="form-element-list mg-t-30">
+						<div class="cmp-tb-hd">
+							<h2>User Profile</h2>
+							<p>
+								An input mask helps the user with the input. This can be
+								useful for dates, numerics, phone numbers etc...
+							</p>
+						</div>
+						<div class="row">
+							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+								<div class="nk-int-mk">
+									<h2>
+										Surname&nbsp;<span class="text-danger">*</span>
+									</h2>
+								</div>
+								<div class="form-group ic-cmp-int">
+									<div class="form-ic-cmp">
+										<i class="notika-icon notika-support"></i>
+									</div>
+									<div class="nk-int-st">
+										<input
+											type="text"
+											class="form-control"
+											id="surname"
+											name="surname"
+											placeholder="Surname.."
+										/>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+								<div class="nk-int-mk">
+									<h2>
+										Other Names&nbsp;<span class="text-danger"
+											>*</span
+										>
+									</h2>
+								</div>
+								<div class="form-group ic-cmp-int">
+									<div class="form-ic-cmp">
+										<i class="notika-icon notika-support"></i>
+									</div>
+									<div class="nk-int-st">
+										<input
+											type="text"
+											id="othernames"
+											name="othernames"
+											class="form-control"
+											placeholder="Othernames..."
+										/>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+								<div class="nk-int-mk">
+									<h2>
+										Username&nbsp;<span class="text-danger">*</span>
+									</h2>
+								</div>
+								<div class="form-group ic-cmp-int">
+									<div class="form-ic-cmp">
+										<i class="notika-icon notika-tax"></i>
+									</div>
+									<div class="nk-int-st">
+										<input
+											type="text"
+											id="userID"
+											name="userID"
+											class="form-control"
+											placeholder="User ID..."
+										/>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+								<div class="nk-int-mk">
+									<h2>Phone&nbsp;<span class="">(Optional)</span></h2>
+								</div>
+								<div class="form-group ic-cmp-int">
+									<div class="form-ic-cmp">
+										<i class="notika-icon notika-phone"></i>
+									</div>
+									<div class="nk-int-st">
+										<input
+											type="text"
+											id="phone"
+											name="phone"
+											class="form-control"
+											data-mask="+233 (99) 999-9999"
+											placeholder="Phone"
+										/>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+								<div class="nk-int-mk">
+									<h2>
+										Alternative Email <span class="">(Optional)</span>
+									</h2>
+								</div>
+								<div class="form-group ic-cmp-int">
+									<div class="form-ic-cmp">
+										<i class="notika-icon notika-mail"></i>
+									</div>
+									<div class="nk-int-st">
+										<input
+											type="text"
+											class="form-control"
+											id="email"
+											name="email"
+											placeholder="Alternative email"
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="form-element-list mg-t-30">
+						<div class="cmp-tb-hd">
+							<h2>User Previlege</h2>
+							<p>Make long, unwieldy select boxes more user friendly.</p>
+						</div>
+						<div class="row">
+							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+								<div class="nk-int-mk sl-dp-mn">
+									<h2>Role</h2>
+								</div>
+								<div class="chosen-select-act fm-cmp-mg">
+									<select
+										id="previlege"
+										name="previlege"
+										class="chosen"
+										data-placeholder="Choose a Country..."
+									>
+										<%if(roles){%> <%for(var role of roles){%>
+
+										<option value="<%= role %>"><%= role %></option>
+
+										<%}%> <%}%>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Dropzone area Start-->
+	<div class="dropzone-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="dropdone-nk mg-t-30">
+						<div class="cmp-tb-hd">
+							<h2>Drag and Drop User's Profile Picture Here</h2>
+							<p>
+								DropzoneJS is an open source library that provides Drag
+								and Drop file uploads with image previews. It’s
+								lightweight, doesn't depend on any other library (like
+								jQuery) and is highly customizable.
+							</p>
+						</div>
+
+						<div id="dropzone1" class="multi-uploader-cs">
+							<div
+								class="dropzone1 dropzone dropzone-nk needsclick"
+								action="/upload"
+								id="dropImage"
+							>
+								<div class="dz-message needsclick download-custom">
+									<i class="notika-icon notika-cloud"></i>
+									<h2>Drop files here or click to upload.</h2>
+
+									<p>
+										<span class="note needsclick"
+											>(This is just a demo dropzone. Selected files
+											are <strong>not</strong> actually
+											uploaded.)</span
+										>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Dropzone area End-->
+
+	<!-- Breadcomb area Start-->
+	<div class="breadcomb-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="breadcomb-list">
+						<div class="row">
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+								<div class="breadcomb-wp"></div>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+								<div class="breadcomb-report-new">
+									<button type="submit" class="btn" form="userForm">
+										<i class="notika-icon notika-sent mr-10"></i>
+										Create User
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Breadcomb area End-->
+</form>
+
+<script type="text/javascript">
+	const form = document.getElementById("userForm");
+	const response = document.getElementById("submitOkay");
+	const previlege = document.getElementById("previlege");
+
+	form.addEventListener("submit", async e => {
+		e.preventDefault();
+
+		const image = $("#dropImage").get(0).dropzone.getAcceptedFiles();
+
+		let data = new FormData();
+
+		data.append("surname", document.getElementById("surname").value);
+		data.append("othernames", document.getElementById("othernames").value);
+		data.append("id", document.getElementById("userID").value);
+		data.append("phone", document.getElementById("phone").value);
+		data.append("email", document.getElementById("email").value);
+		data.append("previlege", document.getElementById("previlege").value);
+		data.append("community", "<%= communityId %>");
+		data.append("domain", "<%= domain %>");
+		data.append("image", image[0], image[0].name);
+
+		
+
+		const result = await fetch(`http://localhost:3000/user/new`, {
+			method: "POST",
+			body: data,
+		}).then(response => response.json());
+
+		if (result.status === "OK") {
+			console.log(result.data);
+			setTimeout(function () {
+                swal({
+                    title: "SUCCESSFUL",
+                    text: `Class ${result.msg}`,
+                    type: "success",
+                })
+                    .then(() => {
+                        // window.history.back();
+                        window.location = "/admin/users"
+                    })
+                    .catch(() => {
+                        window.location = "/admin/users"
+                    });
+            }, 1000);
+			$("#error-dialog").hide();
+		} else {
+			// alert(result.error);
+			console.log(result.error);
+			$("#error-dialog").show();
+		}
+	});
+</script>

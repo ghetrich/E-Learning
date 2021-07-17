@@ -1,0 +1,192 @@
+
+<div class="row">
+	<div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+		<div class="accordion-wn-wp">
+			<div class="accordion-hd">
+				<h2>Topics</h2>
+				<p>
+					Make sure to give the available color in accordion collapse's
+					data-attribute
+				</p>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<%if(exams.length> 0){%>
+						<div class="accordion-stn">
+							<div class="panel-group" data-collapse-color="nk-green" id="accordionGreen" role="tablist"
+								aria-multiselectable="true">
+								<%for(var [index, exams] of exams.entries()){%>
+
+									<div class="panel panel-collapse notika-accrodion-cus">
+										<div class="panel-heading" role="tab">
+											<h4 class="panel-title">
+												<a data-toggle="collapse" data-parent="#accordionGreen"
+													href="#<%=exams._id%>" aria-expanded="true">
+													<%=exams.title%>
+												</a>
+											</h4>
+										</div>
+										<div id="<%=exams._id%>" class="collapse <%if(index == 0){%> in <%}%>"
+											role="tabpanel">
+											<div class="panel-body">
+												<p>
+													<%=exams.introduction%>
+												</p>
+											</div>
+											<div class="vw-ml-action-ls text-right mg-t-20">
+												<div class="
+												btn-group
+												ib-btn-gp
+												active-hook
+												nk-email-inbox
+											">
+													<a href="/getClass/<%=classId%>/topics/edit/<%=topic._id%>"
+														class="btn btn-default btn-sm waves-effect">
+														<i class="notika-icon notika-next"></i> Edit
+													</a>
+
+													<button class="btn btn-default btn-sm waves-effect">
+														<i class="notika-icon notika-print"></i>
+														Restrict
+													</button>
+
+													<%if(user._id != classDetails.teacher._id && user._id
+														!= exams.createdBy){%>
+
+														<%}else{%>
+
+															<button class="
+													btn btn-default btn-danger-hover btn-sm
+													waves-effect
+												" id="deleteBtn" data-id="<%=topic._id%>">
+																<i class="notika-icon notika-trash"></i>
+																Remove
+															</button>
+															<%}%>
+
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<%}%>
+							</div>
+						</div>
+						<%}else{%>
+							<p>No exams</p>
+							<%}%>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+		<div class="contact-form sm-res-mg-t-30 tb-res-mg-t-30 tb-res-mg-t-0">
+			<div class="contact-hd sm-form-hd">
+				<h2>Setup New Assignment</h2>
+				<p>
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
+				</p>
+			</div>
+			<div class="contact-form-int">
+				<form id="topicForm">
+					<div class="form-group">
+						<div class="form-single nk-int-st widget-form">
+							<input type="text" name="title" id="title" class="form-control" placeholder="Title" />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-single nk-int-st widget-form">
+							<textarea name="instructions" id="instructions" class="form-control"
+								placeholder="Brief Instructions"></textarea>
+						</div>
+					</div>
+					<div class="contact-btn">
+						<button type="submit" class="button btn" form="topicForm">
+							Save Topic
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	const topicForm = document.getElementById("topicForm");
+	const response = document.getElementById("submitOkay");
+	const deleteBtn = document.getElementById("deleteBtn");
+
+	topicForm.addEventListener("submit", async e => {
+		e.preventDefault();
+
+		const title = document.getElementById("title").value;
+		const introduction = document.getElementById("introduction").value;
+
+		const result = await fetch(`<%=baseUrl %>/topics/new/<%= classId %>`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ title, introduction }),
+		}).then(response => response.json());
+
+		if (result.status === "OK") {
+			setTimeout(function () {
+				swal({
+					title: "Done",
+					text: "Topic have been Created.",
+					type: "success",
+				})
+					.then(() => {
+						window.location.reload();
+					})
+					.catch(() => {
+						window.location.reload();
+					});
+			}, 1000);
+		} else {
+			alert(result.error);
+			console.log(result.error);
+			$("#error-dialog").show();
+		}
+	});
+
+	$("#deleteBtn").on("click", e => {
+		const id = e.target.dataset.id;
+
+		swal({
+			title: "ATTENTION!",
+			text: "You will not be able to recover this topic!",
+			showCancelButton: true,
+			confirmButtonText: "Yes, delete it!",
+			type: "warning",
+		})
+			.then(async () => {
+				const result = await fetch(`<%=baseUrl %>/topics/delete/${id}`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}).then(response => response.json());
+
+				if (result.status === "OK") {
+					setTimeout(function () {
+						swal("Deleted!", "Topic has been deleted.", "success")
+							.then(() => {
+								window.location.reload();
+							})
+							.catch(() => {
+								window.location.reload();
+							});
+					}, 1000);
+				} else {
+					alert(result.error);
+					console.log(result.error);
+				}
+			})
+			.catch(() => {
+				console.log("cancelled");
+			});
+	});
+</script>
+	

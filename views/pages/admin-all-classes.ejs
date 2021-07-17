@@ -1,0 +1,87 @@
+<!-- Breadcomb area Start-->
+<div class="breadcomb-area">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="breadcomb-list">
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+							<div class="breadcomb-wp">
+								<div class="breadcomb-icon">
+									<i class="notika-icon notika-windows"></i>
+								</div>
+
+								<div class="breadcomb-ctn">
+									<h2>All Classes</h2>
+									<p>
+										Welcome to Free SHS
+										<span class="bread-ntd"
+											>configure a Whole New Community</span
+										>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+							<div class="breadcomb-report">
+								<button
+									data-toggle="tooltip"
+									data-placement="left"
+									title="Download Report"
+									class="btn"
+								>
+									<i class="notika-icon notika-sent"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Breadcomb area End-->
+
+<div class="notika-email-post-area">
+	<div class="container">
+		<div class="row">
+			<%if(classes){%> <%for(var klass of classes){%>
+
+			<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+				<div
+					class="
+						blog-inner-list
+						notika-shadow
+						mg-t-30
+						tb-res-ds-n
+						dk-res-ds
+					"
+				>
+					<div class="blog-img">
+						<img
+							src="<%= baseUrl%>/<%= klass.image%>"
+							alt=""
+							width="790"
+							height="390"
+						/>
+					</div>
+					<div class="blog-ctn">
+						<div class="blog-hd-sw">
+							<h2><%= klass.name%></h2>
+							<a class="bg-au" href="#">By <%= klass.teacher.othernames%>&nbsp;<%= klass.teacher.surname%> since	<%= moment(klass.createdAt).fromNow(); %></a>
+						</div>
+						<p>
+							<%= klass.description %>
+						</p>
+						<a class="btn btn-default waves-effect vw-at" href="/getClass/overview/<%= klass._id%>"><i class="notika-icon notika-menu"></i> More</a>
+					</div>
+				</div>
+			</div>
+
+			<%}%> <%}else{%>
+			<div>Empty</div>
+
+			<%}%>
+		</div>
+	</div>
+</div>

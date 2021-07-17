@@ -4,7 +4,8 @@ const Student = require("../model/student");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const initialize = require("../passport-config");
-
+const ROLE = require("../roles");
+const uploadProfile = require("../middleware/upload");
 // initialize(
 // 	passport,
 // 	username => {
@@ -101,6 +102,96 @@ Router.route("/register").post(async (req, res) => {
 	}
 });
 
+Router.route("/new").post(uploadProfile.single("image"), async (req, res) => {
+	console.log(req.body);
+	console.log(req.files);
+
+	let image;
+	const {
+		surname,
+		othernames,
+		community,
+		domain,
+		phone,
+		email,
+		previlege,
+		id,
+	} = req.body;
+	const defaultImage = "uploads/images/Profile-Picture.jpg";
+	const password = "password@1";
+
+	if (
+		!surname ||
+		!othernames ||
+		!password ||
+		!community ||
+		!domain ||
+		!id ||
+		!previlege
+	) {
+		return res
+			.status(400)
+			.send({ status: "error", error: "All fields are required" });
+	}
+
+	if (req.file) {
+		image = req.file.path;
+	} else {
+		image = defaultImage;
+	}
+
+	User.find({ id })
+		.then(async user => {
+			if (user.length > 0) {
+				return res.status(400).send({
+					status: "error",
+					error: "A user with ID already exists",
+				});
+			} else {
+				const hashedPassword = await bcrypt.hash(password, 10);
+				const newUsername = id + "@" + domain;
+
+				try {
+					const response = await User.create({
+						surname,
+						othernames,
+						username: newUsername,
+						password: hashedPassword,
+						image,
+						community,
+						previlege,
+						identification: id,
+						phone,
+						email,
+					});
+
+					return res.status(200).send({
+						status: "OK",
+						data: response,
+					});
+				} catch (error) {
+					console.log(error.message);
+
+					Student.findByIdAndDelete(student._id).then(() => {
+						return res.status(400).send({
+							status: "ERROR",
+							error: "Something went wrong will creating student 1",
+						});
+					});
+
+					throw error;
+				}
+			}
+		})
+		.catch(err => {
+			return res.status(400).send({
+				status: "ERROR",
+				error: "Something went wrong will creating student 3",
+				devErr: err,
+			});
+		});
+});
+
 Router.route("/activation").post(async (req, res) => {
 	const userId = req.user._id;
 	const { password, con_password } = req.body;
@@ -158,7 +249,10 @@ Router.route("/login").post(
 		successRedirect: "/control",
 		failureRedirect: "/",
 		failureFlash: true,
-	})
+	}),
+	function (req, res) {
+		req.session.isAuth = true;
+	}
 );
 
 Router.route("/all").get(async (req, res) => {
@@ -195,7 +289,7 @@ Router.route("/single/:id").get(async (req, res) => {
 
 	try {
 		User.findById(id)
-			.populate("community", ["name", "_id"])
+			.populate("community", ["name", "_id", "domain"])
 			.select("-password")
 			.then(user => {
 				if (user) {
@@ -221,120 +315,60 @@ Router.route("/single/:id").get(async (req, res) => {
 	}
 });
 
-Router.route("/register/student").post(async (req, res) => {
-	console.log(req.body);
-	const {
-		surname,
-		othernames,
-		community,
-		domain,
-		phone,
-		email,
-		studentId,
-		classesJoined,
-	} = req.body;
-	const googleId = process.env.DEFAULT_GOOGLE_ID || "10345328784796wfwrt144";
-	const image = "http://localhost:3000/uploads/images/Profile-Picture.jpg";
-	const password = "password@1";
+Router.route("/community/:id").get(async (req, res) => {
+	const community = req.params.id;
 
-	if (
-		!surname ||
-		!othernames ||
-		!password ||
-		!community ||
-		!domain ||
-		!studentId
-	) {
-		return res
-			.status(400)
-			.send({ status: "error", error: "All fields are required" });
+	if (community === undefined || community === null || community === "") {
+		return res.status(200).send({
+			status: "BAD",
+			error: "Users not found",
+		});
 	}
 
-	Student.find({ studentId }).then(student => {
-		if (student.length > 0) {
-			return res.status(400).send({
-				status: "error",
-				error: "A student with ID already exists",
-			});
-		} else {
-			const newStudent = new Student({
-				studentId,
-				phone,
-				email,
-				classesJoined,
-			});
-
-			newStudent
-				.save()
-				.then(async student => {
-					const hasdPassword = await bcrypt.hash(password, 10);
-					const newUsername = studentId + "@" + domain;
-					const ownerSpecifier = "Student";
-					try {
-						const response = await User.create({
-							surname,
-							othernames,
-							username: newUsername,
-							password: hasdPassword,
-							googleId,
-							image,
-							community,
-							previlege: ownerSpecifier,
-							owner: student._id,
-							ownerSpecifier,
-						});
-
-						return res.status(200).send({
-							status: "OK",
-							data: "REGISTERED",
-						});
-					} catch (error) {
-						console.log(error.message);
-
-						Student.findByIdAndDelete(student._id).then(() => {
-							return res.status(400).send({
-								status: "ERROR",
-								error: "Something went wrong will creating student",
-							});
-						})
-
-						throw error;
-					}
-				})
-				.catch(err => {
-					return res.status(400).send({
-						status: "ERROR",
-						error: "Something went wrong will creating student",
+	try {
+		User.find({ community })
+			// .populate("community", ["name", "_id"])
+			.populate({ path: "owner" })
+			.select("-password")
+			.then(user => {
+				if (user) {
+					return res.status(200).send({
+						status: "OK",
+						data: user,
 					});
+				} else {
+					return res.status(200).send({
+						status: "BAD",
+						error: "Users not found",
+					});
+				}
+			})
+			.catch(err => {
+				return res.status(400).send({
+					status: "BAD",
+					data: "SOMETHING WENT WRONG",
 				});
-		}
-	});
+			});
+	} catch (error) {
+		console.log(error);
+	}
 });
 
-Router.route("/##").post(async (req, res) => {
-	const { username, password } = req.body;
-	const user = await User.findOne({ username }).lean();
+Router.route("/community/students/:id").get(async (req, res) => {
+	const communityId = req.params.id;
 
-	if (!user) {
-		return res.json({
-			status: "error",
-			error: "Invalid username/password",
+	User.find({ community: communityId, previlege: ROLE.STUDENT })
+		.select(["_id", "surname", "othernames","identification"])
+		.then(students => {
+			res.status(200).send(students);
+		})
+		.catch(error => {
+			console.log(error);
+			res.status(404).send({
+				status: "BAD",
+				msg: "Unsuccessful",
+			});
 		});
-	}
-
-	if (await bcrypt.compare(password, user.password)) {
-		const token = jwt.sign(
-			{ id: user._id, username: user.username },
-			JWT_SECRET
-		);
-
-		return res.json({
-			status: "OK",
-			data: token,
-		});
-	}
-
-	return res.json({ status: "error", error: "Invalid username/password" });
 });
 
 module.exports = Router;

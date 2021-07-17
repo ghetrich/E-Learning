@@ -30,12 +30,21 @@ module.exports = {
 			if (!req.user.isActivated) {
 				res.redirect("/activation");
 			} else {
-				if (req.user.previlege === "systemadministrator") {
-					return next();
-				} else {
-					res.send(req.user.previlege);
-				}
+				return next();
 			}
+		} else {
+			res.redirect("/");
+		}
+	},
+	onlyFor: roles =>  (req, res, next) => {
+		if (req.isAuthenticated()) {
+			if ( !roles.includes(req.user.previlege) ) {
+				res.redirect("/unAuthorized");
+			} else {
+				return next();
+			}
+		} else {
+			res.redirect("/"); 
 		}
 	},
 };

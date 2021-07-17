@@ -4,11 +4,11 @@
 	/*
 	 * Notifications
 	 */
-	function notify(from, align, icon, type, animIn, animOut){
+	function notify(from, align, icon, type, animIn, animOut, title, msg){
 		$.growl({
 			icon: icon,
-			title: ' Bootstrap Growl ',
-			message: 'Turning standard Bootstrap alerts into awesome notifications',
+			title: title || ' Bootstrap Growl ',
+			message: msg || 'Turning standard Bootstrap alerts into awesome notifications',
 			url: ''
 		},{
 				element: 'body',
@@ -24,7 +24,7 @@
 				},
 				spacing: 10,
 				z_index: 1031,
-				delay: 2500,
+				delay: 10000,
 				timer: 1000,
 				url_target: '_blank',
 				mouse_over: false,
@@ -46,7 +46,7 @@
 		});
 	};
 	
-	$('.notification-demo .btn').on('click', function(e){
+	$('.notification-demo1').on('click', function(e){
 		e.preventDefault();
 		var nFrom = $(this).attr('data-from');
 		var nAlign = $(this).attr('data-align');
@@ -57,6 +57,35 @@
 		
 		notify(nFrom, nAlign, nIcons, nType, nAnimIn, nAnimOut);
 	});
+
+	$("#createUserResponse").on("click", function (e) {
+		e.preventDefault();
+		var nFrom = $(this).attr("data-from");
+		var nAlign = $(this).attr("data-align");
+		var nIcons = $(this).attr("data-icon");
+		var nType = $(this).attr("data-type");
+		var nAnimIn = $(this).attr("data-animation-in");
+		var nAnimOut = $(this).attr("data-animation-out");
+		var nTitle = $(this).attr("data-title");
+		var nMsg = $(this).attr("data-msg");
+		
+		notify(nFrom, nAlign, nIcons, nType, nAnimIn, nAnimOut, nTitle, nMsg);
+	});
+
+
+		$("#lessonDel").on("click", function (e) {
+			e.preventDefault();
+			var nFrom = $(this).attr("data-from");
+			var nAlign = $(this).attr("data-align");
+			var nIcons = $(this).attr("data-icon");
+			var nType = $(this).attr("data-type");
+			var nAnimIn = $(this).attr("data-animation-in");
+			var nAnimOut = $(this).attr("data-animation-out");
+			var nTitle = $(this).attr("data-title");
+			var nMsg = $(this).attr("data-msg");
+
+			notify(nFrom, nAlign, nIcons, nType, nAnimIn, nAnimOut, nTitle, nMsg);
+		});
 
  
 })(jQuery); 

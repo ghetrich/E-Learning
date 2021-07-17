@@ -1,0 +1,255 @@
+<button class="btn btn-info" id="submitOkay" style="display: none">
+	Click me
+</button>
+
+<div class="form-example-wrap">
+	<div class="cmp-tb-hd cmp-int-hd">
+		<h2>Enroll New Student</h2>
+	</div>
+	<div class="row">
+		<form id="enrollmentForm">
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="form-example-int form-example-st">
+					<div class="form-group">
+						<div class="nk-int-st">
+							<div class="bootstrap-select fm-cmp-mg">
+								<select
+									id="students"
+									name="students"
+									class="selectpicker"
+									data-live-search="true"
+									multiple
+								>
+									<% if(students){%> <% for( var student of students
+									){%> <% if(!studentsJoined.includes(student._id)){%>
+									<option value="<%= student._id%>">
+										<%= student.othernames%>&nbsp;<%=
+										student.surname%> - <%= student.identification%>
+									</option>
+									<% }%> <% }%> <% }else{%>
+									<option>No Student Found</option>
+									<% }%>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="form-example-int enroll-btn">
+					<button
+						type="submit"
+						class="btn search-ib"
+						form="enrollmentForm"
+					>
+						Enroll
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<% if(classDetails.studentJoined.length > 0){%>
+
+<div class="inbox-text-list sm-res-mg-t-30 mg-t-30">
+	<div class="form-group">
+		<div class="nk-int-st search-input search-overt">
+			<input
+				type="text"
+				class="form-control"
+				placeholder="Search student..."
+			/>
+			<button class="btn search-ib">Search</button>
+		</div>
+	</div>
+	<div class="inbox-btn-st-ls btn-toolbar">
+		<div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+			<button class="btn btn-default btn-sm">
+				<i class="notika-icon notika-refresh"></i> Refresh
+			</button>
+
+			<button id="btn-check-all" class="btn btn-default btn-sm">
+				<i class="notika-icon notika-checked"></i>
+			</button>
+		</div>
+		<div class="btn-group ib-btn-gp active-hook nk-act nk-email-inbox">
+			<button id="btn-remove-checked" class="btn btn-default btn-sm">
+				<i class="notika-icon notika-trash"></i>
+			</button>
+		</div>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-hover table-inbox">
+			<tbody>
+				<% for( var student of classDetails.studentJoined ){%>
+					<!-- unread -->
+				<tr class="">
+					<td class="">
+						<label
+							><input
+								type="checkbox"
+								value="<%= student._id%>"
+								class="i-checks user-checked"
+								name="checkme"
+						/></label>
+					</td>
+					<td>
+						<a href="#">
+							<%=student.othernames%> <%=student.surname%>
+						</a>
+					</td>
+					<td>
+						<a href="#"> <%=student.identification%> </a>
+					</td>
+					<td>
+						<a href="#"> <%=student.username%> </a>
+					</td>
+
+					<%if(student.isActivated){%>
+					<td>
+						<i
+							class="notika-icon notika-up-arrow text-success mg-r-15"
+						></i
+						>Active
+					</td>
+					<% }else{%>
+					<td>
+						<i
+							class="notika-icon notika-down-arrow text-danger mg-r-15"
+						></i
+						>Inactive
+					</td>
+					<% }%>
+
+					<td class="text-right mail-date">
+						<%=moment(student.createdAt).format("DD MMM, YYYY")%>
+					</td>
+				</tr>
+				<% }%>
+			</tbody>
+		</table>
+		<div class="pagination-inbox">
+			<ul class="wizard-nav-ac">
+				<li>
+					<a class="btn" href="#"
+						><i class="notika-icon notika-back"></i
+					></a>
+				</li>
+				<li class="active"><a class="btn" href="#">1</a></li>
+				<li><a class="btn" href="#">2</a></li>
+				<li><a class="btn" href="#">3</a></li>
+				<li>
+					<a class="btn" href="#"
+						><i class="notika-icon notika-next-pro"></i
+					></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<% }else{%>
+<h1>No Student Enrolled</h1>
+<% }%>
+
+<script type="text/javascript">
+	$("#btn-remove-checked").click(async () => {
+		var students = [];
+		$.each($("input[name='checkme']:checked"), function () {
+			students.push($(this).val());
+		});
+		console.log(students);
+
+		const result = await fetch(
+			`<%=baseUrl %>/class/student/removefromclass/<%= classId %>`,
+			{
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ students }),
+			}
+		).then(response => response.json());
+
+		if (result.status === "OK") {
+			setTimeout(function () {
+				swal({
+					title: "ATTENTION",
+					text: `Are you sure you want to remove student(s) from the class`,
+					showCancelButton: true,
+					confirmButtonText: "Yes, remove!",
+					type: "warning",
+				})
+					.then(() => {
+						swal({
+							title: "DONE",
+							text: `Student(s) have been removed from the class`,
+							type: "success",
+						})
+							.then(() => {
+								window.location.reload();
+							})
+							.catch(() => {
+								window.location.reload();
+							});
+					})
+					.catch(() => {
+						console.log("cancelled");
+					});
+			}, 1000);
+			$("#error-dialog").hide();
+		} else {
+			alert(result.error);
+			console.log(result.error);
+			$("#error-dialog").show();
+		}
+	});
+
+	const enrollmentForm = document.getElementById("enrollmentForm");
+	const response = document.getElementById("submitOkay");
+
+	enrollmentForm.addEventListener("submit", async e => {
+		e.preventDefault();
+		const selected = document.querySelectorAll("#students option:checked");
+		const stu = Array.from(selected).map(val => val.value);
+
+		const result = await fetch(
+			`<%=baseUrl %>/class/student/addtoclass/<%= classId %>`,
+			{
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ students: stu }),
+			}
+		).then(response => response.json());
+
+		if (result.status === "OK") {
+			// console.log(result.data,"success");
+			setTimeout(function () {
+				swal({
+					title: "SUCCESSFUL",
+					text: `Student(s) added to this class`,
+					type: "success",
+				})
+					.then(() => {
+						// window.history.back();
+						window.location.reload();
+					})
+					.catch(() => {
+						window.location.reload();
+					});
+			}, 1000);
+			$("#error-dialog").hide();
+		} else {
+			alert(result.error);
+			console.log(result.error);
+			$("#error-dialog").show();
+		}
+	});
+
+	const CHECK_ALL = document.getElementById("btn-check-all");
+	const CHECKED_USERS = document.querySelectorAll(".user-checked");
+</script>

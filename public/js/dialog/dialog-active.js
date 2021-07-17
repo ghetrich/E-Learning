@@ -38,6 +38,19 @@
 		});
 	});
 
+// ========================================================================
+// ===== // this alert confirm successful submission of new user form =====
+// ========================================================================
+
+$("#submitOkay").on("click", function () {
+	swal(
+		"Good job!",
+		"User has been successfully created.",
+		"success"
+	);
+});
+
+
 	//Leave single community page confirmation
 	$("#toCommunity").on("click", function () {
 		swal({
@@ -51,7 +64,6 @@
 		});
 	});
 
-	
 	//Leave single community page confirmation
 	$("#toClients").on("click", function () {
 		swal({
@@ -64,6 +76,7 @@
 			window.location = "/clients";
 		});
 	});
+
 
 	//Warning Message
 	$("#sa-warning").on("click", function () {

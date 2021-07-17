@@ -159,7 +159,6 @@
 		animation: "fade",
 	});
 
-
 	/*--------------------------
 	 row click
 	---------------------------- */
@@ -168,11 +167,39 @@
 		window.location = `/single/community/${id}`;
 	});
 
-
 	$(".client").on("click", function () {
 		var id = $(this).data("id");
 		window.location = `/single/client/${id}`;
 	});
 
+	$("#btn-check-all").click(function () {
+		console.log($(".user-checked"));
+		if ($("#btn-check-all").hasClass("all-checked")) {
+			$("#btn-check-all").removeClass("all-checked");
+			$(".user-checked").each(function () {
+				this.checked = false;
+			});
 
-})(jQuery); 
+			$(".user-checked").iCheck({
+				checkboxClass: "icheckbox_square-green",
+			});
+		} else {
+			$("#btn-check-all").addClass("all-checked");
+			$(".user-checked").each(function () {
+				this.checked = true;
+			});
+
+			$(".user-checked").iCheck({
+				checkboxClass: "icheckbox_square-green",
+			});
+		}
+	});
+
+	// $("#btn-remove-checked").click(function () {
+	// 	var students = [];
+	// 	$.each($("input[name='checkme']:checked"), function () {
+	// 		favorite.push($(this).val());
+	// 	});
+	// 	console.log(favorite);
+	// });
+})(jQuery);

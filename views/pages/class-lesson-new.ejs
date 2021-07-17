@@ -1,0 +1,262 @@
+<div class="view-mail-list sm-res-mg-t-30">
+	<form id="contentForm">
+		<div class="view-mail-hd">
+			<div class="basic-tb-hd">
+				<h2>New Lesson</h2>
+				<p>
+					Form control which supports multiple lines of text. Change 'rows'
+					attribute as necessary.
+				</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="floating-numner">
+					<p>
+						<b>Sub Topic</b>
+						<span>*</span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="form-group">
+					<div class="nk-int-st">
+						<textarea
+							class="form-control auto-size"
+							name="subTitle"
+							id="subTitle"
+							rows="2"
+							placeholder="Start typing the sub-topic..."
+						></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="cmp-int mg-t-20">
+			<div class="row">
+				<div class="col-lg-1 col-md-2 col-sm-2 col-xs-12">
+					<div class="cmp-int-lb cmp-int-lb1 text-right">
+						<span>To: </span>
+					</div>
+				</div>
+				<div class="col-lg-11 col-md-10 col-sm-10 col-xs-12">
+					<div class="form-group">
+						<div class="nk-int-st cmp-int-in cmp-email-over">
+							<input
+								type="email"
+								class="form-control"
+								placeholder="example@email.com"
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-1 col-md-2 col-sm-2 col-xs-12">
+					<div class="cmp-int-lb cmp-int-lb1 text-right">
+						<span>Cc: </span>
+					</div>
+				</div>
+				<div class="col-lg-11 col-md-10 col-sm-10 col-xs-12">
+					<div class="form-group">
+						<div class="nk-int-st cmp-int-in cmp-email-over">
+							<input type="email" class="form-control" placeholder="" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-1 col-md-2 col-sm-2 col-xs-12">
+					<div class="cmp-int-lb text-right">
+						<span>Subject: </span>
+					</div>
+				</div>
+				<div class="col-lg-11 col-md-10 col-sm-10 col-xs-12">
+					<div class="form-group cmp-em-mg">
+						<div class="nk-int-st cmp-int-in cmp-email-over">
+							<input type="text" class="form-control" placeholder="" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> -->
+		<div class="cmp-int-box mg-t-20">
+			<div class="html-editor-cm" id="mainContent">
+				<span class="vw-tr">Thanks and Regards</span>
+				<span>Mark Smith</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="widget-tabs-int">
+					<!-- <div class="tab-hd">
+					<div class="floating-numner">
+						<h4>Supplimentary</h4>
+					</div>
+					<p>
+						Add quick, dynamic tab functionality to transition through
+						panes of local content, even via dropdown menus.
+					</p>
+				</div> -->
+					<div class="widget-tabs-list">
+						<ul class="nav nav-tabs">
+							<li class="active">
+								<a data-toggle="tab" href="#materials"
+									>Reading Materials</a
+								>
+							</li>
+							<li>
+								<a data-toggle="tab" href="#review">Review Statement</a>
+							</li>
+							<!-- <li>
+							<a data-toggle="tab" href="#voices">Voice Note Links</a>
+						</li> -->
+						</ul>
+						<div class="tab-content tab-custom-st">
+							<div id="materials" class="tab-pane fade in active">
+								<div class="tab-ctn">
+									<div class="row mg-t-20">
+										<div
+											class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+										>
+											<div id="dropzone1" class="multi-uploader-cs">
+												<div
+													class="
+														dropzone1
+														dropzone dropzone-nk
+														needsclick
+													"
+													action="/upload"
+													id="dropFile"
+												>
+													<div
+														class="
+															dz-message
+															needsclick
+															download-custom
+														"
+													>
+														<i
+															class="notika-icon notika-cloud"
+														></i>
+														<h2>
+															Drop files here or click to upload.
+														</h2>
+
+														<p>
+															<span class="note needsclick"
+																>(This is just a demo dropzone.
+																Selected files are
+																<strong>not</strong> actually
+																uploaded.)</span
+															>
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id="review" class="tab-pane fade">
+								<div class="tab-ctn">
+									<div class="form-group">
+										<div class="nk-int-st">
+											<textarea
+												class="form-control auto-size"
+												rows="5"
+												name="reviewQuestion"
+												id="reviewQuestion"
+												placeholder="Start pressing..... "
+											></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--  -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <hr /> -->
+		<div class="vw-ml-action-ls text-right mg-t-30">
+			<div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+				<button type="button" class="btn btn-sm waves-effect mg-r-15" id="btnCancel">
+					<i class="notika-icon notika-next"></i>
+					Cancel
+				</button>
+
+				<button
+					type="submit"
+					class="btn button btn-default btn-sm waves-effect"
+					form="contentForm"
+				>
+					<i class="notika-icon notika-sent mr-10"></i>
+					Create Lesson
+				</button>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	const contentForm = document.getElementById("contentForm");
+
+	contentForm.addEventListener("submit", async e => {
+		e.preventDefault();
+
+		const files = $("#dropFile").get(0).dropzone.getAcceptedFiles();
+
+		let data = new FormData();
+
+		data.append("subTitle", document.getElementById("subTitle").value);
+		data.append("body", $(".html-editor-cm").code());
+		data.append(
+			"reviewQuestion",
+			document.getElementById("reviewQuestion").value
+		);
+
+		files.forEach(element => {
+			data.append("readingMaterials", element, element.name);
+		});
+
+		const result = await fetch(
+			`<%=baseUrl %>/topics/lesson/new/<%=topicId%>`,
+			{
+				method: "PUT",
+				body: data,
+			}
+		).then(response => response.json());
+
+		if (result.status === "OK") {
+			console.log(result.data);
+
+			setTimeout(function () {
+				swal({
+					title: "Great",
+					text: "Lesson has been successfully created.",
+					type: "success",
+				})
+					.then(() => {
+						window.location = "/getClass/lessons/<%=classId%>";
+					})
+					.catch(() => {
+							window.location = "/getClass/lessons/<%=classId%>";
+						// window.location.reload();
+					});
+			}, 1000);
+		} else {
+			alert(result.error);
+			console.log(result.error);
+			sweetAlert("Sorry", "You forgot to enter todo text", "error");
+			$("#error-dialog").show();
+		}
+	});
+
+	$("#btnCancel").on("click", ()=>{
+		window.history.back()
+	})
+</script>

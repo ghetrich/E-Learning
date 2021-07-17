@@ -65,7 +65,8 @@
             'id': '9',
             'text': 'Nullam dolor nibh ultricies',
             'done': true
-        }];
+                }
+            ];
 
         this.$todoCompletedData = [];
         this.$todoUnCompletedData = [];

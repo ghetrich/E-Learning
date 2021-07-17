@@ -1,0 +1,454 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="
+				alert alert-danger alert-dismissible alert-mg-b-0
+				error-dialog-d-none
+			" role="alert" id="error-dialog">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i class="notika-icon notika-close"></i></span>
+            </button>
+            Oh snap! Change a few things up and try submitting again.
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display: none">
+        <div class="notification-inner">
+            <div class="notification-demo animate-nt mg-t-20">
+                <button class="btn btn-info" data-type="success" data-animation-in="animated bounceIn"
+                    id="createUserResponse" data-animation-Out="animated bounceOut" data-title=" User Saved : "
+                    data-msg="DropzoneJS is an open source library that provides Drag and Drop file uploads with image previews"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modals-list">
+    <form id="classForm">
+        <!-- Form Element area Start-->
+        <div class="form-element-area">
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-element-list ">
+                        <div class="cmp-tb-hd">
+                            <h2>Modify Class Information</h2>
+                            <p>
+                                An input mask helps the user with the input. This can be
+                                useful for dates, numerics, phone numbers etc...
+                            </p>
+                        </div>
+                        <button type="button" class="btn btn-default  btn-sm waves-effect" id="editClass">
+                            Make Change to Class Information
+                        </button>
+                        <div class="row edit-class-form" style="display: none">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="floating-numner">
+                                    <p>Name&nbsp;<span class="text-danger">*</span></p>
+                                </div>
+                                <div class="form-group">
+                                    <!-- <div class="form-ic-cmp">
+										<i class="notika-icon notika-support"></i>
+									</div> -->
+                                    <div class="nk-int-st">
+                                        <input type="text" class="form-control" id="name" name="name"
+                                            placeholder="Class name" value="<%=classDetails.name%>" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="floating-numner">
+                                    <p>
+                                        Description&nbsp;<span class="text-danger">*</span>
+                                    </p>
+                                </div>
+                                <div class="form-group">
+                                    <div class="nk-int-st">
+                                        <textarea id="description" name="description" class="form-control auto-size"
+                                            rows="5"
+                                            placeholder="Start pressing Enter to see growing..."><%=classDetails.description%></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="row edit-class-form" style="display: none">
+
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 p-b-30">
+                    <div class="form-element-list ">
+                        <div class="cmp-tb-hd">
+                            <h2>Instructors</h2>
+                            <p>Make long, unwieldy select boxes more user friendly.</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 ">
+                                <div class="floating-numner">
+                                    <p>Teacher&nbsp;<span class="text-danger">*</span></p>
+                                </div>
+                                <div class="bootstrap-select fm-cmp-mg">
+                                    <select id="teacher" name="teacher" class="selectpicker" data-live-search="true">
+                                        <option>No Teacher Found</option>
+                                        <%if(teachers){%>
+                                            <%for(var teacher of teachers){%>
+                                                <option value="<%= teacher.id%>"
+                                                    <%if(teacher.id===classDetails.teacher._id){%> selected="selected"
+                                                    <%}%> >
+                                                        <%= teacher.name%>
+                                                </option>
+                                                <%}%>
+                                                    <%}%>
+
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 mg-t-30">
+                                <div class="floating-numner">
+                                    <p>Assistants</p>
+                                </div>
+                                <div class="bootstrap-select fm-cmp-mg">
+                                    <select id="assistants" name="assistants[]" class="selectpicker"
+                                        data-live-search="true" multiple>
+                                        <%if(teachers){%>
+                                            <%for(var teacher of teachers){%>
+
+                                                <option value="<%= teacher.id%>" <%if(assistants.includes(teacher.id )
+                                                    ){%> selected="selected"<%}%>>
+                                                        <%= teacher.name%>
+                                                </option>
+                                                <%}%>
+                                                    <%}else{%>
+                                                        <option>No Teacher Found</option>
+                                                        <%}%>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-element-list ">
+                        <div class="cmp-tb-hd">
+                            <h2>Section</h2>
+                            <p>Make long, unwieldy select boxes more user friendly.</p>
+                        </div>
+
+                        <%if(tracks){%>
+                            <%for(var track of tracks){%>
+
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="fm-checkbox">
+                                            <label class="iradio_square-green-label"><input type="radio"
+                                                    class="i-checks track" name="track" value="<%= track %>"
+                                                    <%if(classDetails.track==track){%>checked="checked" id="track" <%}%>
+                                                    />
+                                                    <i></i>
+                                                    <%= track %></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%}%>
+                                    <%}%>
+
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+            <div class="row edit-class-form" style="display: none">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcomb-list">
+                          <div class="breadcomb-report-new ">
+                         <button type="button" class="btn btn-cancel waves-effect mr-10" id="editCancel"
+                                 >
+                                Cancel
+                            </button>
+                        <button type="submit" class="btn waves-effect" form="classForm">
+                            <i class="notika-icon notika-sent mr-10"></i>
+                            Save Changes
+                        </button>
+                    </div>
+                    </div>
+                  
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+
+</div>
+
+<div class="modals-list mg-t-30">
+    <form id="classBannerForm">
+        <!-- Dropzone area Start-->
+        <div class="dropzone-area">
+            <!-- <div class="container"> -->
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="dropdone-nk ">
+                        <div class="cmp-tb-hd">
+                            <h2>You Can Change Class Banner Here</h2>
+                            <p>
+                                DropzoneJS is an open source library that provides Drag and
+                                Drop file uploads with image previews. It’s lightweight,
+                                doesn't depend on any other library (like jQuery) and is
+                                highly customizable.
+                            </p>
+
+                        </div>
+
+                        <button type="button" class="btn btn-default  btn-sm waves-effect" id="classBanner">
+                            Change Class Banner
+                        </button>
+                        <div id="dropzone1" class="multi-uploader-cs mg-t-30" style="display: none">
+                            <div class="dropzone1 dropzone dropzone-nk needsclick" action="#" id="dropImage">
+                                <div class="dz-message needsclick download-custom">
+                                    <i class="notika-icon notika-cloud"></i>
+                                    <h2>Drop files here or click to upload.</h2>
+
+                                    <p>
+                                        <span class="note needsclick">(This is just a demo dropzone. Selected files are
+                                            <strong>not</strong> actually uploaded.)</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="breadcomb-list">
+                        <div class="breadcomb-report-new">
+                            <button type="button" class="btn btn-cancel waves-effect mr-10" id="bannerCancel"
+                                form="classBannerForm" style="display: none">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn" id="bannerSubmit" form="classBannerForm"
+                                style="display: none">
+                                <i class="notika-icon notika-sent mr-10"></i>
+                                Set This Banner
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+        <!-- Dropzone area End-->
+
+    </form>
+</div>
+
+<div class="modals-list border-warning mg-t-30">
+    <div class="cmp-tb-hd">
+        <h2>Suspend This Class</h2>
+        <p>
+            DropzoneJS is an open source library that provides Drag and
+            Drop file uploads with image previews. It’s lightweight.
+        </p>
+
+    </div>
+
+     <div class="breadcomb-list">
+        <div class="breadcomb-report-new">
+           <div class="toggle-select-act fm-cmp-mg">
+			<div class="nk-toggle-switch" data-ts-color="amber">
+				<!-- <label for="ts1" class="ts-label"></label> -->
+				<input id="ts1" type="checkbox" hidden="hidden" value="<%=classDetails.isActive%>" <%if(!classDetails.isActive){%> checked="checked"
+                                                    <%}%> />
+				<label for="ts1" class="ts-helper"></label>
+			</div>
+		</div>
+        </div>
+    </div>
+</div>
+
+<%if(previlege === "Administrator"){%>
+ <div class="modals-list border-danger mg-t-30">
+    <div class="cmp-tb-hd">
+        <h2>Delete Class</h2>
+        <p>
+            DropzoneJS is an open source library that provides Drag and
+            Drop file uploads with image previews. It’s lightweight.
+        </p>
+
+    </div>
+
+    <div class="breadcomb-list">
+        <div class="breadcomb-report-new">
+            <button type="button" class="btn btn-delete" id="classDelete" >
+                <i class="notika-icon notika-trash mr-10"></i>
+                Delete
+            </button>
+        </div>
+    </div>
+</div>   
+    
+<%}%>
+
+
+
+
+
+<script type="text/javascript">
+    const form = document.getElementById("classForm");
+    const classBannerForm = document.getElementById("classBannerForm");
+    const switchSuspended = document.getElementById("ts1");
+
+    switchSuspended.addEventListener("change", async e =>{
+
+        const isActive = ()=>{   
+            return e.target.value == "true" ? false : true;
+        }     
+
+        const result = await fetch(`<%=baseUrl %>/class/edit/isActive/<%=classId%>`, {
+            method: "PUT",
+            headers: {
+				"Content-Type": "application/json",
+			},
+            body: JSON.stringify({isActive:isActive()}),
+
+        }).then(response => response.json());
+
+        if (result.status === "OK") {
+
+            setTimeout(function () {
+                swal({
+                    title: "Updated",
+                    text: `Class ${result.msg}`,
+                    type: "success",
+                })
+                    .then(() => {
+                        // window.history.back();
+                        window.location.reload();
+                    })
+                    .catch(() => {
+                        window.location.reload();
+                    });
+            }, 1000);
+
+
+            $("#error-dialog").hide();
+        } else {
+            alert(result.error);
+            console.log(result.error);
+            $("#error-dialog").show();
+        }
+
+
+
+    })
+
+    form.addEventListener("submit", async e => {
+        e.preventDefault();
+
+        
+
+        const name = document.getElementById("name").value
+        const teacher = document.getElementById("teacher").value
+        const track = document.getElementById("track").value
+        const description = document.getElementById("description").value
+        const assistants = $("#assistants").val()
+
+       console.log(assistants);
+
+        const prevURI =
+            "/admin/class/update/<%=classId%>";
+        const result = await fetch(`<%=baseUrl %>/class/edit/<%=classId%>`, {
+            method: "PUT",
+            headers: {
+				"Content-Type": "application/json",
+			},
+            body: JSON.stringify({name, teacher, track, description, assistants}),
+
+        }).then(response => response.json());
+
+        if (result.status === "OK") {
+
+            setTimeout(function () {
+                swal({
+                    title: "Updated",
+                    text: "Class Information have been updated.",
+                    type: "success",
+                })
+                    .then(() => {
+                        // window.history.back();
+                        window.location.reload();
+                    })
+                    .catch(() => {
+                        window.location.reload();
+                    });
+            }, 1000);
+
+
+            $("#error-dialog").hide();
+        } else {
+            alert(result.error);
+            console.log(result.error);
+            $("#error-dialog").show();
+        }
+    });
+
+    classBannerForm.addEventListener("submit", async e=>{
+        e.preventDefault();
+        const image = $("#dropImage").get(0).dropzone.getAcceptedFiles();
+        let data = new FormData();
+         data.append("image", image[0], image[0].name);
+
+         const result = await fetch(`<%=baseUrl %>/class/edit/banner/<%=classId%>`, {
+            method: "PUT",
+            body: data,
+
+        }).then(response => response.json());
+        if (result.status === "OK") {
+
+            setTimeout(function () {
+                swal({
+                    title: "Changed",
+                    text: "Class Banner have been changed.",
+                    type: "success",
+                })
+                    .then(() => {
+                        // window.history.back();
+                        window.location.reload();
+                    })
+                    .catch(() => {
+                        window.location.reload();
+                    });
+            }, 1000);
+
+
+            $("#error-dialog").hide();
+        } else {
+            alert(result.error);
+            console.log(result.error);
+            $("#error-dialog").show();
+        }
+    })
+
+    
+    $("#classBanner").click(() => {
+        $("#dropzone1").toggle()
+        $("#classBanner").hide()
+        $("#bannerSubmit, #bannerCancel").show()
+    })
+
+    $("#bannerCancel").click(() => {
+        $("#dropzone1, #bannerSubmit, #bannerCancel, #classBanner").toggle()
+    })
+    $("#editClass, #editCancel").click(() => {
+        $(".edit-class-form").toggle()
+        $("#editClass").toggle()
+    })
+
+</script>

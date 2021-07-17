@@ -11,7 +11,6 @@ Router.route("/logout").post(ensureAuth,(req, res) => {
 		email,
 		maritalStatus,
 		isDisabled,
-		whyDisabled,
 		othernames,
 		telephone,
 		hostelRequired,

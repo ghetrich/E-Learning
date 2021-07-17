@@ -1,0 +1,101 @@
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="contact-form sm-res-mg-t-30 tb-res-mg-t-30 tb-res-mg-t-0">
+			<div class="contact-hd sm-form-hd">
+				<h2>Edit Topic</h2>
+				<p>
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
+				</p>
+			</div>
+			<div class="contact-form-int">
+				<form id="topicForm">
+					<div class="form-group">
+						<div class="form-single nk-int-st widget-form">
+							<input
+								type="text"
+								name="title"
+								id="title"
+								class="form-control"
+								placeholder="Title"
+								value="<%= topic.title %>"
+							/>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-single nk-int-st widget-form">
+							<textarea
+								name="introduction"
+								id="introduction"
+								class="form-control"
+								placeholder="Brief Description"
+							>
+<%= topic.introduction %></textarea
+							>
+						</div>
+					</div>
+					<div class="contact-btn">
+						<button
+							type="button"
+							class="btn btn-cancel waves-effect mr-10"
+							id="editCancel"
+						>
+							Cancel
+						</button>
+						<button
+							type="submit"
+							class="button btn notika-tl-btn"
+							form="topicForm"
+						>
+							Save Changes
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	const topicForm = document.getElementById("topicForm");
+	const response = document.getElementById("submitOkay");
+
+	topicForm.addEventListener("submit", async e => {
+		e.preventDefault();
+
+		const title = document.getElementById("title").value;
+		const introduction = document.getElementById("introduction").value;
+		const prevURI = "/admin/class/topics/<%=classId %>";
+		const result = await fetch(`<%=baseUrl %>/topics/edit/<%= topic._id %>`, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ title, introduction }),
+		}).then(response => response.json());
+
+		if (result.status === "OK") {
+			setTimeout(function () {
+				swal({
+					title: "Updated",
+					text: "Topic have been updated.",
+					type: "success",
+				})
+					.then(() => {
+						// window.history.back();
+						window.location = prevURI;
+					})
+					.catch(() => {
+						window.location = prevURI;
+					});
+			}, 1000);
+		} else {
+			alert(result.error);
+			console.log(result.error);
+			sweetAlert("Sorry", "You forgot to enter todo text", "error");
+		}
+	});
+
+	$("#editCancel").on("click", () => {
+		window.history.back();
+	});
+</script>

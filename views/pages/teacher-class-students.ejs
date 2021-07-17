@@ -1,0 +1,82 @@
+<div class="data-table-area">
+	<!-- <div class="container"> -->
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="data-table-list">
+				<div class="basic-tb-hd">
+					<h2>Students of the Class</h2>
+					<p>
+						It's just that simple. Turn your simple table into a
+						sophisticated data table and offer your users a nice
+						experience and great features without any effort.
+					</p>
+				</div>
+
+				<%if(classDetails.studentJoined.length > 0){%>
+
+				<div class="table-responsive">
+					<table id="data-table-basic" class="table table-striped">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Index</th>
+								<th>Username</th>
+								<th>Status</th>
+								<th>Created At</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%for(var student of classDetails.studentJoined){%>
+							<tr>
+								<td>
+									<%=student.othernames%>&nbsp;<%=student.surname%>
+								</td>
+								<td><%=student.identification%></td>
+								<td><%=student.username%></td>
+								<%if(student.isActivated){%>
+								<td>
+									<i
+										class="
+											notika-icon notika-up-arrow
+											text-success
+											mg-r-15
+										"
+									></i
+									>Active
+								</td>
+								<% }else{%>
+								<td>
+									<i
+										class="
+											notika-icon notika-down-arrow
+											text-danger
+											mg-r-15
+										"
+									></i
+									>Inactive
+								</td>
+								<% }%>
+
+								<td><%=moment(student.createdAt).format("DD MMM, YYYY")%></td>
+							</tr>
+							<%}%>
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>Name</th>
+								<th>Index</th>
+								<th>Username</th>
+								<th>Status</th>
+								<th>Created At</th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+				<%}else{%>
+				<h2>No Student</h2>
+				<%}%>
+			</div>
+		</div>
+	</div>
+	<!-- </div> -->
+</div>

@@ -1,0 +1,353 @@
+<!-- Breadcomb area Start-->
+<div class="breadcomb-area">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="breadcomb-list">
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+							<div class="breadcomb-wp">
+								<div class="breadcomb-icon">
+									<i class="notika-icon notika-windows"></i>
+								</div>
+
+								<div class="breadcomb-ctn">
+									<h2>Create New Class</h2>
+									<p>
+										Welcome to Free SHS
+										<span class="bread-ntd"
+											>configure a Whole New Community</span
+										>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+							<div class="breadcomb-report">
+								<button
+									data-toggle="tooltip"
+									data-placement="left"
+									title="Download Report"
+									class="btn"
+								>
+									<i class="notika-icon notika-sent"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Breadcomb area End-->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div
+				class="
+					alert alert-danger alert-dismissible alert-mg-b-0
+					error-dialog-d-none
+				"
+				role="alert"
+				id="error-dialog"
+			>
+				<button
+					type="button"
+					class="close"
+					data-dismiss="alert"
+					aria-label="Close"
+				>
+					<span aria-hidden="true"
+						><i class="notika-icon notika-close"></i
+					></span>
+				</button>
+				Oh snap! Change a few things up and try submitting again.
+			</div>
+		</div>
+		<div
+			class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+			style="display: none"
+		>
+			<!-- <div class="notification-inner">
+				<div class="notification-demo animate-nt mg-t-20">
+					<button
+						class="btn btn-info"
+						data-type="success"
+						data-animation-in="animated bounceIn"
+						id="createUserResponse"
+						data-animation-Out="animated bounceOut"
+						data-title=" User Saved : "
+						data-msg="DropzoneJS is an open source library that provides Drag and Drop file uploads with image previews"
+					></button>
+				</div>
+			</div> -->
+		</div>
+	</div>
+</div>
+
+<button class="btn btn-info" id="submitOkay" style="display: none">
+	Click me
+</button>
+
+<form id="classForm">
+	<!-- Form Element area Start-->
+	<div class="form-element-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="form-element-list mg-t-30">
+						<div class="cmp-tb-hd">
+							<h2>Class Details</h2>
+							<p>
+								An input mask helps the user with the input. This can be
+								useful for dates, numerics, phone numbers etc...
+							</p>
+						</div>
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="floating-numner">
+									<p>Name&nbsp;<span class="text-danger">*</span></p>
+								</div>
+								<div class="form-group">
+									<!-- <div class="form-ic-cmp">
+										<i class="notika-icon notika-support"></i>
+									</div> -->
+									<div class="nk-int-st">
+										<input
+											type="text"
+											class="form-control"
+											id="name"
+											name="name"
+											placeholder="Class name"
+										/>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="floating-numner">
+									<p>
+										Description&nbsp;<span class="text-danger"
+											>*</span
+										>
+									</p>
+								</div>
+								<div class="form-group">
+									<div class="nk-int-st">
+										<textarea
+											id="description"
+											name="description"
+											class="form-control auto-size"
+											rows="2"
+											placeholder="Start pressing Enter to see growing..."
+										></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 p-b-30">
+					<div class="form-element-list mg-t-30">
+						<div class="cmp-tb-hd">
+							<h2>Instructors</h2>
+							<p>Make long, unwieldy select boxes more user friendly.</p>
+						</div>
+						<div class="row">
+							<div class="col-lg-12 mg-t-30">
+								<div class="floating-numner">
+									<p>
+										Teacher&nbsp;<span class="text-danger">*</span>
+									</p>
+								</div>
+								<div class="bootstrap-select fm-cmp-mg">
+									<select
+										id="teacher"
+										name="teacher"
+										class="selectpicker"
+										data-live-search="true"
+									>
+										<%if(teachers){%> <%for(var teacher of
+										teachers){%>
+										<option value="<%= teacher.id%>">
+											<%= teacher.name%>
+										</option>
+										<%}%> <%}else{%>
+										<option>No Teacher Found</option>
+										<%}%>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-lg-12 mg-t-30">
+								<div class="floating-numner">
+									<p>Assistants</p>
+								</div>
+								<div class="bootstrap-select fm-cmp-mg">
+									<select
+										id="assistants"
+										name="assistants[]"
+										class="selectpicker"
+										data-live-search="true"
+										multiple
+									>
+										<%if(teachers){%> <%for(var teacher of
+										teachers){%>
+										<option value="<%= teacher.id%>">
+											<%= teacher.name%>
+										</option>
+										<%}%> <%}else{%>
+										<option>No Teacher Found</option>
+										<%}%>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="form-element-list mg-t-30">
+						<div class="cmp-tb-hd">
+							<h2>Section</h2>
+							<p>Make long, unwieldy select boxes more user friendly.</p>
+						</div>
+
+						<%if(tracks){%> <%for(var track of tracks){%>
+
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="fm-checkbox">
+									<label
+										><input
+											type="radio"
+											class="i-checks"
+											id="track"
+											name="track"
+											value="<%= track %>"
+										/>
+										<i></i> <%= track %></label
+									>
+								</div>
+							</div>
+						</div>
+						<%}%> <%}%>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Dropzone area Start-->
+	<div class="dropzone-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="dropdone-nk mg-t-30">
+						<div class="cmp-tb-hd">
+							<h2>Drag and Drop Course Picture Here</h2>
+							<p>
+								DropzoneJS is an open source library that provides Drag
+								and Drop file uploads with image previews. It’s
+								lightweight, doesn't depend on any other library (like
+								jQuery) and is highly customizable.
+							</p>
+						</div>
+
+						<div id="dropzone1" class="multi-uploader-cs">
+							<div
+								class="dropzone1 dropzone dropzone-nk needsclick"
+								action="/upload"
+								id="dropImage"
+							>
+								<div class="dz-message needsclick download-custom">
+									<i class="notika-icon notika-cloud"></i>
+									<h2>Drop files here or click to upload.</h2>
+
+									<p>
+										<span class="note needsclick"
+											>(This is just a demo dropzone. Selected files
+											are <strong>not</strong> actually
+											uploaded.)</span
+										>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Dropzone area End-->
+
+	<!-- Breadcomb area Start-->
+	<div class="breadcomb-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="breadcomb-list">
+						<div class="row">
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+								<div class="breadcomb-wp"></div>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+								<div class="breadcomb-report-new">
+									<button type="submit" class="btn" form="classForm">
+										<i class="notika-icon notika-sent mr-10"></i>
+										Create Class
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Breadcomb area End-->
+</form>
+
+
+
+<script type="text/javascript">
+	const form = document.getElementById("classForm");
+	const response = document.getElementById("submitOkay");
+
+	form.addEventListener("submit", async e => {
+		e.preventDefault();
+
+		const image = $("#dropImage").get(0).dropzone.getAcceptedFiles();
+		const assistants = $("#assistants").val()
+		let data = new FormData();
+
+		data.append("name", document.getElementById("name").value);
+		data.append("teacher", document.getElementById("teacher").value);
+		data.append("track", document.getElementById("track").value);
+		data.append("description", document.getElementById("description").value);
+		assistants.map(el=>{
+		data.append("assistants", el);
+		})
+		data.append("community", "<%= community %>");
+		data.append("image", image[0], image[0].name);
+
+		const result = await fetch(`<%=baseUrl %>/class/new`, {
+			method: "POST",
+			body: data,
+		}).then(response => response.json());
+
+		if (result.status === "OK") {
+			console.log(result.data);
+			response.click();
+			$("#error-dialog").hide()
+		} else {
+			alert(result.error);
+			console.log(result.error);
+			$("#error-dialog").show()
+		}
+	});
+</script>

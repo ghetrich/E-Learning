@@ -3437,6 +3437,13 @@ fieldset[disabled] .form-control {
 	background-color: #fff;
 	opacity: 1;
 }
+
+.nk-int-st .form-control-date[disabled],
+.nk-int-st .form-control-date[readonly],
+fieldset[disabled] .form-control-date {
+	background-color: #fff;
+	opacity: 1;
+}
 .fm-checkbox label {
 	font-weight: 400;
 }
@@ -3624,6 +3631,9 @@ textarea.auto-size {
 	font-weight: 700;
 }
 .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+	width: 100%;
+}
+.bootstrap-select:not([class*="col-"]):not([class*="form-control-date"]):not(.input-group-btn) {
 	width: 100%;
 }
 .bootstrap-select .notify {
@@ -4802,6 +4812,8 @@ textarea.auto-size {
 	padding: 0px 0px;
 }
 .widget-form input[type="email"],
+.widget-form input[type="time"],
+.widget-form input[type="date"],
 .cmp-email-over input[type="email"],
 .widget-form input[type="number"],
 .cmp-email-over input[type="text"],

@@ -1,0 +1,247 @@
+<div class="widget-tabs-int">
+	<div class="tab-hd">
+		<h2><%=exam.title%></h2>
+		<p><%=moment(exam.createdAt).format("MMM DD, YYYY HH:mm:ss:a")%></p>
+	</div>
+	<div class="widget-tabs-list">
+		<ul class="nav nav-tabs">
+			<li class="active">
+				<a data-toggle="tab" href="#Instructions">Instructions</a>
+			</li>
+			<li><a data-toggle="tab" href="#Submissions">Submissions</a></li>
+		</ul>
+		<div class="tab-content tab-custom-st">
+			<div id="Instructions" class="tab-pane fade in active">
+				<div class="tab-ctn">
+					<p class="typography-pre-line"><%=exam.instructions%></p>
+					<div class="file-download-system">
+						<div class="dw-st-ic mg-t-20">
+							<div class="dw-atc-sn">
+								<span
+									><i class="notika-icon notika-paperclip"></i>
+									Attached Question
+									<i
+										class="notika-icon notika-arrow-right atc-sign"
+									></i
+								></span>
+							</div>
+							<div class="dw-atc-sn">
+								<a class="btn dw-al-ft" href="#"
+									>Download in zip format
+									<i class="notika-icon notika-file"></i
+								></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="Submissions" class="tab-pane fade">
+				<div class="tab-ctn">
+<%if(exam.submissions.length > 0){%>
+					<div class="data-table-area">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="data-table-list">
+									<div class="basic-tb-hd">
+										<!-- <h2>Basic Example</h2> -->
+										<p>
+											It's just that simple. Turn your simple table
+											into a sophisticated data table and offer your
+											users a nice experience and great features
+											without any effort.
+										</p>
+									</div>
+									<div class="table-responsive">
+										<table
+											id="data-table-basic"
+											class="table table-striped"
+										>
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Index</th>
+													<th>Submission date/time</th>
+													<th>Score</th>
+													
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+												<%for(var [index, submission] of exam.submissions.entries()){%>
+												<tr>
+													<td><%= submission.student.othernames%>&nbsp;<%= submission.student.surname%></td>
+													<td><%= submission.student.identification%></td>
+													<td ><%= moment(submission.submissionDate).format("MMM DD, YYYY HH:mm:ss:a")%></td>
+													<%if(submission.isGraded){%>
+													<td><%=submission.grade%></td>
+													<%}else{%><td>Not graded</td><%}%>
+												
+													<td>
+														<button
+															data-toggle="tooltip"
+															data-placement="left"
+															title="Download File"
+															class="btn btn-sm"
+														>
+															<i
+																class="notika-icon notika-sent"
+															></i>
+														</button>
+														<button
+															data-toggle="modal"
+															data-target="#editModalone<%=index%>"
+															data-placement="left"
+															title="Edit Grade"
+															class="btn btn-sm"
+															
+														>
+															<i
+																class="notika-icon notika-menu"
+															></i>
+														</button>
+				
+	<div class="modal fade" id="editModalone<%=index%>" role="dialog">
+		<form id="gradeForm<%=index%>" onsubmit='return setGrade({grade:"grade<%=index%>", id:"<%=submission._id%>"});'>
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					&times;
+				</button>
+			</div>
+			<div class="modal-body">
+				<h2>Add Grade</h2>
+				<p>
+					faucibus at, scelerisque quis, convallis in, nisi. Cras sagittis.
+				</p>
+
+				<div class="contact-form-int">
+                    
+					<div class="form-group">
+						<div class="form-single nk-int-st widget-form">
+							<input
+								type="number"
+								class="form-control grade"
+                                min="0"
+                                max="<%=exam.totalPoints%>"  
+								value="<%=submission.grade%>"                
+								placeholder="Student Grade"
+								id="grade<%=index%>"
+							/>
+						</div>
+					</div>
+                    <div id="dropzone1" class="multi-uploader-cs">
+								<div class="dropzone1 dropzone dropzone-nk needsclick" action="/upload" id="dropFile">
+									<div class="dz-message needsclick download-custom">
+										<i class="notika-icon notika-cloud"></i>
+										<h2>Drop here or click to upload marked script.</h2>										
+									</div>
+								</div>
+							</div>
+				</div>
+					
+				<%if(submission.markedScript.length > 0){%>	
+					
+				<div class="file-download-system mg-t-20">
+					
+						<div class="dw-st-ic mg-t-20">
+							<div class="dw-atc-sn">
+								<span
+									><i class="notika-icon notika-paperclip"></i>
+										<%=submission.markedScript.length%> Marked Script
+									<i
+										class="notika-icon notika-arrow-right atc-sign"
+									></i
+								></span>
+							</div>
+							<div class="dw-atc-sn">
+								<a class="btn dw-al-ft" href="#"
+									>Download all
+									<i class="notika-icon notika-file"></i
+								></a>
+							</div>
+						</div>
+					</div>	
+					<%}%>
+				
+			</div>
+			<div class="modal-footer mg-t-30">
+				<button type="submit" class="btn btn-default" form="gradeForm<%=index%>">
+					Save changes
+				</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">
+					Close
+				</button>
+			</div>
+		</div>
+	</div>
+	</form>
+</div>
+													</td>
+												</tr>
+												
+												
+
+
+
+
+												<%}%>
+												
+											</tbody>
+											<tfoot>
+												<tr>
+													<th>Name</th>
+													<th>Index</th>
+													<th>Submission date/time</th>
+													<th>Score</th>
+													<th>Action</th>
+												
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+<%}%>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+const setGrade =  e  => { 
+
+
+		new Promise(async (res, rej)=>{
+			
+		const grade = document.getElementById(e.grade).value
+
+		const script = $("#dropFile").get(0).dropzone.getAcceptedFiles();
+
+		let data = new FormData();
+
+		data.append("grade", grade);	
+	if (script.length > 0) {
+			data.append("markedScript", script[0], script[0].name);
+	}
+	
+		const saveGrade = await fetch(`<%=baseUrl %>/exam/<%=exam._id%>/grade/${e.id}`, {
+			method: "PUT",
+			body: data,
+		}).then(response => response.json());
+		})
+
+		
+
+	return false;
+}
+</script>

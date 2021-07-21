@@ -1,0 +1,170 @@
+<div class="row sm-mg-t-30">
+	<form id="assignmentForm">
+		<div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+			<div class="accordion-wn-wp">
+				<div class="accordion-hd">
+					<h2>Setup New Assignment</h2>
+					<p>
+						Make sure to give the available color in accordion collapse's
+						data-attribute
+					</p>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="contact-form-int">
+							<div class="form-group">
+								<div class="form-single nk-int-st widget-form">
+									<input type="text" name="title" id="title" class="form-control"
+										placeholder="Title" />
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="form-single nk-int-st widget-form">
+									<textarea name="instructions" id="instructions" class="form-control"
+										placeholder="Brief Instructions"></textarea>
+								</div>
+							</div>
+
+							<div id="dropzone1" class="multi-uploader-cs">
+								<div class="dropzone1 dropzone dropzone-nk needsclick" action="/upload" id="dropFile">
+									<div class="dz-message needsclick download-custom">
+										<i class="notika-icon notika-cloud"></i>
+										<h2>Drop files here or click to upload.</h2>
+
+										<p>
+											<span class="note needsclick">(This question file must be in a pdf, docx,
+												... format or zipped. Any other file format
+												will <strong>not</strong> be allowed.)</span>
+										</p>
+									</div>
+								</div>
+							</div>
+							<!-- <div class="contact-btn mg-t-30">
+						<button
+							type="submit"
+							class="button btn"
+							form="assignmentForm"
+						>
+							Save Assignment
+						</button>
+					</div> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+			<div class="contact-form sm-res-mg-t-30 tb-res-mg-t-30 tb-res-mg-t-0">
+				<div class="contact-hd sm-form-hd">
+					<h2>Configure Assignment Time</h2>
+					<p>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
+					</p>
+				</div>
+				<div class="themesaller-forms mg-t-30">
+					<div class="spacer-b16a">
+						<label for="totalPoints">Total Marks</label>
+						<input type="text" id="totalPoints" class="slider-input">
+					</div>
+					<div class="slider-wrapper">
+						<div id="totalPointSlider"></div>
+					</div>
+				</div>
+				<div class="contact-form-int">
+
+					<div class="form-group">
+						<label>Start Date</label>
+						<div class="form-single nk-int-st widget-form">
+							<input type="date" name="startDate" id="startDate" class="form-control" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label>Start Time</label>
+						<div class="form-single nk-int-st widget-form">
+							<input type="time" name="startTime" id="startTime" class="form-control" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label>End Date</label>
+						<div class="form-single nk-int-st widget-form">
+							<input type="date" name="endDate" id="endDate" class="form-control" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label>End Time</label>
+						<div class="form-single nk-int-st widget-form">
+							<input type="time" name="endTime" id="endTime" class="form-control" />
+						</div>
+					</div>
+
+					<div class="contact-btn mg-t-30">
+						<button type="submit" class="button btn" form="assignmentForm">
+							Save Assignment
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	const assignmentForm = document.getElementById("assignmentForm");
+
+
+	assignmentForm.addEventListener("submit", async e => {
+		e.preventDefault();	
+		const startDate = document.getElementById("startDate").value;
+		const startTime = document.getElementById("startTime").value;
+		const endDate = document.getElementById("endDate").value;
+		const endTime = document.getElementById("endTime").value;
+
+		let startsAt, endsAt;
+
+		if (startDate && startTime && endDate && endTime) {
+			startsAt = startDate + ":" + startTime;
+			endsAt = endDate + ":" + endTime;
+		}
+
+		const question = $("#dropFile").get(0).dropzone.getAcceptedFiles();
+
+		let data = new FormData();
+
+		data.append("title", document.getElementById("title").value);
+		data.append("instructions", document.getElementById("instructions").value);
+		data.append("totalPoints", document.getElementById("totalPoints").value);
+		data.append("startsAt", startsAt);
+		data.append("endsAt", endsAt);
+		data.append("community", "<%= community %>")
+
+		data.append("question", question[0], question[0].name);
+
+		const assignment = await fetch(`<%=baseUrl %>/exam/new/<%= classId %>`, {
+			method: "POST",
+			body: data,
+		}).then(response => response.json());
+
+		if (assignment.status === "OK") {
+			setTimeout(function () {
+				swal({
+					title: "Done",
+					text: "Assignment have been Created.",
+					type: "success",
+				})
+					.then(() => {
+						window.location.reload();
+					})
+					.catch(() => {
+						window.location.reload();
+					});
+			}, 1000);
+		} else {
+			alert(assignment.error);
+			console.log(assignment.error);
+			$("#error-dialog").show();
+		}
+	});
+</script>

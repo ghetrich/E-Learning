@@ -282,8 +282,8 @@ Router.route("/:topicId/lesson/edit/:contentId").put(
 	(req, res) => {
 		const topicId = req.params.topicId;
 		const contentId = req.params.contentId;
-		console.log(req.body);
-		console.log(req.files);
+		// console.log(req.body);
+		// console.log(req.files);
 
 		let readingMaterials;
 		const { subTitle, body, reviewQuestion } = req.body;

@@ -36,12 +36,13 @@ app.get(
 	onlyFor([ROLE.TEACHER, ROLE.ADMIN]),
 	async (req, res) => {
 		const classId = req.params.classId;
+		const community = req.user.community;
 		try {
 			const classDetails = await axios.get(`${CONFIG.URI}/class/${classId}`);
 			const topics = await axios.get(
 				`${CONFIG.URI}/topics/class/${classId}`
 			);
-
+				const exams = await axios.get(`${CONFIG.URI}/exam/class/${classId}`);
 			if (!classDetails) {
 				res.redirect("/404.ejs");
 			} else {
@@ -53,7 +54,80 @@ app.get(
 					route: "Assignment",
 					classId,
 					moment,
-                    exams:[],
+					community,
+					trunc: INCLUDES.TEXT_TRUNCATION,
+                    exams:exams.data || [],
+					topics: topics.data || [],
+				});
+			}
+		} catch (error) {
+			console.log(error);
+			res.end("err");
+		}
+	}
+);
+app.get(
+	"/:classId/:examId",
+	onlyFor([ROLE.TEACHER, ROLE.ADMIN]),
+	async (req, res) => {
+		const classId = req.params.classId;
+		const community = req.user.community;
+		const examId = req.params.examId;
+		try {
+			const classDetails = await axios.get(`${CONFIG.URI}/class/${classId}`);
+			const topics = await axios.get(
+				`${CONFIG.URI}/topics/class/${classId}`
+			);
+			const exam = await axios.get(`${CONFIG.URI}/exam/${examId}`);
+			console.log(exam.data);
+			if (!classDetails) {
+				res.redirect("/404.ejs");
+			} else {
+				res.render("../views/pages/class-single-exams.ejs", {
+					layout: `./Layouts/${renderLayout(req.user.previlege)}`,
+					currentRoute: "Classes",
+					baseUrl: CONFIG.URI,
+					classDetails: classDetails.data,
+					route: "Assignment",
+					classId,
+					moment,
+					community,
+					exam: exam.data,
+					topics: topics.data || [],
+				});
+			}
+		} catch (error) {
+			console.log(error);
+			res.end("err");
+		}
+	}
+);
+
+app.get(
+	"/class/:classId/new",
+	onlyFor([ROLE.TEACHER, ROLE.ADMIN]),
+	async (req, res) => {
+		const classId = req.params.classId;
+		const community = req.user.community;
+		try {
+			const classDetails = await axios.get(`${CONFIG.URI}/class/${classId}`);
+			const topics = await axios.get(
+				`${CONFIG.URI}/topics/class/${classId}`
+			);
+
+			if (!classDetails) {
+				res.redirect("/404.ejs");
+			} else {
+				res.render("../views/pages/class-exams-new.ejs", {
+					layout: `./Layouts/${renderLayout(req.user.previlege)}`,
+					currentRoute: "Classes",
+					baseUrl: CONFIG.URI,
+					classDetails: classDetails.data,
+					route: "Assignment",
+					classId,
+					moment,
+					community,
+					exams: [],
 					topics: topics.data || [],
 				});
 			}

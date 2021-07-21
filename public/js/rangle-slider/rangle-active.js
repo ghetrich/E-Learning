@@ -82,8 +82,26 @@
 					step: 1,
 					create: yearTooltip,
 					slide: yearTooltip
-				});	
-				
+				});
+	
+		var initialPoint = 100;
+		var pointTooltip = function (event, ui) {
+			var curPoint = ui.value || initialPoint;
+			var pointTip = '<span class="slider-tip">' + curPoint + "</span>";
+			$("#totalPoints").val(ui.value);	
+			$(this).find(".ui-slider-handle").html(pointTip);
+		};
+
+		$("#totalPointSlider").slider({
+			value: initialPoint,
+			range: "min",
+			min: 1,
+			max: 100,
+			step: 1,
+			create: pointTooltip,
+			slide: pointTooltip,
+		});
+			$("#totalPoints").val($("#totalPointSlider").slider("value"));	
 				
  
 				$('#slider8').slider({

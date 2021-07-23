@@ -142,6 +142,7 @@
 
 		data.append("question", question[0], question[0].name);
 
+	
 		const assignment = await fetch(`<%=baseUrl %>/exam/new/<%= classId %>`, {
 			method: "POST",
 			body: data,

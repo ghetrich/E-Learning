@@ -2162,6 +2162,21 @@
 			});
 		},
 	};
+
+
+	Dropzone.options.dropScript = {
+		init: function () {
+			this.on("addedfile", function (file) {
+				
+				if (this.files.length > 1) {
+					this.removeFile(this.files[0]);
+				}
+				if (!file.type.includes("application/")) {
+					this.removeFile(this.files[this.files.length - 1]);
+				}
+			});
+		},
+	};
 	/*
 	 * contentloaded.js
 	 *

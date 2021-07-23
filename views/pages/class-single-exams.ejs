@@ -101,7 +101,7 @@
 														</button>
 				
 	<div class="modal fade" id="editModalone<%=index%>" role="dialog">
-		<form id="gradeForm<%=index%>" onsubmit='return setGrade({grade:"grade<%=index%>", id:"<%=submission._id%>"});'>
+		<form id="gradeForm<%=index%>" data-student="<%=submission._id%>" data-id="<%=index%>" >
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -130,14 +130,15 @@
 							/>
 						</div>
 					</div>
-                    <div id="dropzone1" class="multi-uploader-cs">
-								<div class="dropzone1 dropzone dropzone-nk needsclick" action="/upload" id="dropFile">
+                    <div id="dropzone<%=index%>" class="multi-uploader-cs">
+								<div class="dropzone1 dropzone dropzone-nk needsclick" action="/upload" id="dropScript">
 									<div class="dz-message needsclick download-custom">
 										<i class="notika-icon notika-cloud"></i>
 										<h2>Drop here or click to upload marked script.</h2>										
 									</div>
 								</div>
-							</div>
+					</div>
+					
 				</div>
 					
 				<%if(submission.markedScript.length > 0){%>	
@@ -218,30 +219,59 @@
 
 <script type="text/javascript">
 
-const setGrade =  e  => { 
-
-
-		new Promise(async (res, rej)=>{
+// const setGrade =  e  => { 
 			
-		const grade = document.getElementById(e.grade).value
+// 		const grade = document.getElementById(e.grade).value
 
-		const script = $("#dropFile").get(0).dropzone.getAcceptedFiles();
+// 		const script = $("#dropFile").get(0).dropzone.getAcceptedFiles();
 
-		let data = new FormData();
+// 		let data = new FormData();
 
-		data.append("grade", grade);	
-	if (script.length > 0) {
-			data.append("markedScript", script[0], script[0].name);
-	}
+// 		data.append("grade", grade);
+// 		console.log(script);	
+
+// 	if (script.length > 0) {		
+// 			data.append("markedScript", script[0], script[0].name);
+// 	}
+
+
+
 	
-		const saveGrade = await fetch(`<%=baseUrl %>/exam/<%=exam._id%>/grade/${e.id}`, {
-			method: "PUT",
-			body: data,
-		}).then(response => response.json());
-		})
+// 		const saveGrade = await fetch(`<%=baseUrl %>/exam/<%=exam._id%>/grade/${e.id}`, {
+// 			method: "PUT",
+// 			body: data,
+// 		}).then(response => response.json());
+	
 
 		
 
-	return false;
-}
+// 	return false;
+// }
+
+
+
+$("form").on('submit', async e =>{
+
+	e.preventDefault();
+		let index = e.target.getAttribute("data-id")
+		let student = e.target.getAttribute("data-student")
+		const script = $(`#dropzone${index}>#dropScript`).get(0).dropzone.getAcceptedFiles();
+		const grade = document.getElementById(`grade${index}`).value
+
+		let data = new FormData();
+
+		data.append("grade", grade);
+		// console.log({script,student});	
+
+	if (script.length > 0) {		
+			data.append("markedScript", script[0], script[0].name);
+	}
+
+		const saveGrade = await fetch(`<%=baseUrl %>/exam/<%=exam._id%>/grade/${student}`, {
+			method: "PUT",
+			body: data,
+		}).then(response => response.json());
+
+	
+})
 </script>

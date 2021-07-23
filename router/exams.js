@@ -152,7 +152,7 @@ Router.route("/:examId/grade/:studentId").put(
 	uploadAnswers.single("markedScript"),
 	(req, res) => {
 		const { grade } = req.body;
-		let markedScript="";
+		let markedScript;
 		const studentId = req.params.studentId;
 		const examId = req.params.examId;
 		if (!grade) {
@@ -160,10 +160,18 @@ Router.route("/:examId/grade/:studentId").put(
 				.status(404)
 				.send({ status: "BAD", msg: "Unsuccessful! Required fields" });
 		}
+		// console.log(req.file);
+		// console.log(req.body);
+		let pushScript={};
 		if (req.file) {
 			markedScript = req.file.path;
+			pushScript =  {
+					"submissions.$.markedScript": {
+						script: markedScript,
+						submittedBy: req.user.id,
+					},
+				}
 		}
-		console.log(studentId);
 
 		Exam.updateOne(
 			{ _id: examId, "submissions._id": studentId },
@@ -173,17 +181,7 @@ Router.route("/:examId/grade/:studentId").put(
 					"submissions.$.grade": grade,
 					"submissions.$.modifiedBy": req.user.id,
 				},
-				$push: {
-					$cond: [
-						{ $ne: [markedScript, ""] },
-						{
-							"submissions.$.markedScript": {
-								script: markedScript,
-								submittedBy: req.user.id,
-							},
-						},
-					],
-				},
+				$push: pushScript,
 			}
 		)
 			.then(done => {

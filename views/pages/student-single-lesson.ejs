@@ -1,266 +1,274 @@
 <!-- Breadcomb area Start-->
 <div class="breadcomb-area">
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="breadcomb-list">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <div class="breadcomb-wp">
-                            <div class="breadcomb-icon">
-                                <i class="notika-icon notika-windows"></i>
-                            </div>
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="breadcomb-list">
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<div class="breadcomb-wp">
+							<div class="breadcomb-icon">
+								<i class="notika-icon notika-windows"></i>
+							</div>
 
-                            <div class="breadcomb-ctn">
-                                <h2>
-                                    <%=classDetails.name%>
-                                </h2>
-                                <p>
-                                    Welcome to Free SHS
-                                    <span class="bread-ntd">configure a Whole New Community</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
-                        <div class="breadcomb-report">
-                            <button data-toggle="tooltip" data-placement="left" title="Download Report" class="btn">
-                                <i class="notika-icon notika-sent"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+							<div class="breadcomb-ctn">
+								<h2><%=classDetails.name%></h2>
+								<p>
+									Welcome to Free SHS
+									<span class="bread-ntd"
+										>configure a Whole New Community</span
+									>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+						<div class="breadcomb-report">
+							<button
+								data-toggle="tooltip"
+								data-placement="left"
+								title="Download Report"
+								class="btn"
+							>
+								<i class="notika-icon notika-sent"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- Breadcomb area End-->
 <div class="tab-content custom-menu-content mg-b-15">
-    <div id="Courses" class="
-			tab-pane
-			<%
-			if(currentRoute
-			===
-			'Classes'){%>
-			active
-			<%}%>
-			notika-tab-menu-bg
-			animated
-			flipInX
-		">
-        <ul class="notika-main-menu-dropdown">
-            <li><a href="/student/topics/<%=classId%>">Lessons</a></li>
-            <li><a href="/student/<%=classId%>/announcements">Announcements</a></li>
-            <li><a href="/student/classes">Quizzes</a></li>
-            <li><a href="/student/classes">Assignments</a></li>
-        </ul>
-    </div>
+	<%- include("includes/student-subnav") %>
 </div>
-<!-- Wizard area Start-->
-<div class="wizard-area">
-    <!-- <div class="container"> -->
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="wizard-wrap-int">
-                <div class="wizard-hd">
-                    <h2>
-                        <%=lesson.title%>
-                    </h2>
-                    <p>
-                        <%=lesson.lesson.subTitle%>
-                    </p>
-                    <p>
-                        <%= moment(lesson.lesson.createdAt).format("LLLL") %>
-                    </p>
-                </div>
-                <div id="rootwizard">
-                    <div class="navbar">
-                        <div class="navbar-inner">
-                            <div class="container-pro wizard-cts-st">
-                                <ul>
-                                    <li>
-                                        <a href="#Introduction" data-toggle="tab">Introduction</a>
-                                    </li>
-                                    <li>
-                                        <a href="#Materials" data-toggle="tab">Materials</a>
-                                    </li>
-                                    <li>
-                                        <a href="#Review" data-toggle="tab">Review</a>
-                                    </li>
-                                    <li>
-                                        <a href="#Assessment" data-toggle="tab">Assessment</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane wizard-ctn ctn-pre" id="Introduction">
-                            <%-lesson.lesson.body%>
-                        </div>
-                        <div class="tab-pane wizard-ctn" id="Materials">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Phasellus purus sapien, cursus et egestas at, volutpat
-                                sed dolor. Aliquam sollicitudin dui ac euismod
-                                hendrerit. Phasellus quis lobortis dolor. Sed massa
-                                massa, sagittis nec fermentum eu, volutpat non lectus.
-                                Nullam vitae tristique nunc. Aenean vel placerat augue.
-                            </p>
 
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="
+<!-- Wizard area Start-->
+
+<div class="wizard-area">
+	<!-- <div class="container"> -->
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="wizard-wrap-int">
+				<div class="wizard-hd">
+					<h2><%=lesson.title%></h2>
+					<p><%=lesson.lesson.subTitle%></p>
+					<p><%= moment(lesson.lesson.createdAt).format("LLLL") %></p>
+				</div>
+				<div id="rootwizard">
+					<div class="navbar">
+						<div class="navbar-inner">
+							<div class="container-pro wizard-cts-st">
+								<ul>
+									<li>
+										<a href="#Introduction" data-toggle="tab"
+											>Introduction</a
+										>
+									</li>
+									<li>
+										<a href="#Materials" data-toggle="tab"
+											>Materials</a
+										>
+									</li>
+									<li>
+										<a href="#Review" data-toggle="tab">Review</a>
+									</li>
+									<li>
+										<a href="#Assessment" data-toggle="tab"
+											>Assessment</a
+										>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="tab-content">
+						<div class="tab-pane wizard-ctn ctn-pre" id="Introduction">
+							<%-lesson.lesson.body%>
+						</div>
+						<div class="tab-pane wizard-ctn" id="Materials">
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								Phasellus purus sapien, cursus et egestas at, volutpat
+								sed dolor. Aliquam sollicitudin dui ac euismod
+								hendrerit. Phasellus quis lobortis dolor. Sed massa
+								massa, sagittis nec fermentum eu, volutpat non lectus.
+								Nullam vitae tristique nunc. Aenean vel placerat augue.
+							</p>
+
+							<div class="row">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<div
+										class="
 											search-engine-int
 											sm-res-mg-t-30
 											tb-res-mg-t-30 tb-res-mg-t-0
-										">
-                                        <% if(lesson.lesson.readingMaterials.length>
-                                            0){%>
-                                            <div class="search-eg-table">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Filename</th>
-                                                            <th>File Type</th>
-                                                            <th>Size</th>
-                                                            <th class="text-right">Download</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <%for(var file of lesson.lesson.readingMaterials){%>
+										"
+									>
+										<% if(lesson.lesson.readingMaterials.length> 0){%>
+										<div class="search-eg-table">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>Filename</th>
+														<th>File Type</th>
+														<th>Size</th>
+														<th class="text-right">Download</th>
+													</tr>
+												</thead>
+												<tbody>
+													<%for(var file of
+													lesson.lesson.readingMaterials){%>
 
-                                                            <tr>
-                                                                <td>
-                                                                    <%= file.originalName%>
-                                                                </td>
-                                                                <td>
-                                                                    <%= filetype(file.originalName)%>
-                                                                </td>
-                                                                <td>
-                                                                    <%= fileSize(file.size) %>
-                                                                        <i class="
+													<tr>
+														<td><%= file.originalName%></td>
+														<td>
+															<%= filetype(file.originalName)%>
+														</td>
+														<td>
+															<%= fileSize(file.size) %>
+															<i
+																class="
 																	notika-icon notika-up-arrow
-																"></i>
-                                                                </td>
-                                                                <td class="text-right">
-                                                                    <button data-toggle="tooltip" data-placement="left"
-                                                                        title="Download File" class="btn btn-sm">
-                                                                        <i class="
+																"
+															></i>
+														</td>
+														<td class="text-right">
+															<button
+																data-toggle="tooltip"
+																data-placement="left"
+																title="Download File"
+																class="btn btn-sm"
+															>
+																<i
+																	class="
 																		notika-icon notika-sent
-																	"></i>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                            <%}%>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <% if(lesson.lesson.readingMaterials.length>
-                                                1){%>
-                                                <div class="file-download-system">
-                                                    <div class="dw-st-ic mg-t-20">
-                                                        <div class="dw-atc-sn">
-                                                            <span><i class="
+																	"
+																></i>
+															</button>
+														</td>
+													</tr>
+													<%}%>
+												</tbody>
+											</table>
+										</div>
+										<% if(lesson.lesson.readingMaterials.length> 1){%>
+										<div class="file-download-system">
+											<div class="dw-st-ic mg-t-20">
+												<div class="dw-atc-sn">
+													<span
+														><i
+															class="
 																notika-icon notika-paperclip
-															"></i>
-                                                                <%=lesson.lesson.readingMaterials.length%>
-                                                                    attachments
-                                                                    <i class="
+															"
+														></i>
+														<%=lesson.lesson.readingMaterials.length%>
+														attachments
+														<i
+															class="
 																notika-icon notika-arrow-right
 																atc-sign
-															"></i>
-                                                            </span>
-                                                        </div>
-                                                        <div class="dw-atc-sn">
-                                                            <a class="btn dw-al-ft" href="#"
-                                                                onclick="downloadMaterials()">Download all in zip format
-                                                                <i class="notika-icon notika-file"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <%}%>
-                                                    <%}else{%> NO FILE <%}%>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane wizard-ctn" id="Review">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Phasellus purus sapien, cursus et egestas at, volutpat
-                                sed dolor. Aliquam sollicitudin dui ac euismod
-                                hendrerit. Phasellus quis lobortis dolor. Sed massa
-                                massa, sagittis nec fermentum eu, volutpat non lectus.
-                                Nullam vitae tristique nunc. Aenean vel placerat augue.
-                                Aliquam pharetra mauris neque, sitan amet egestas risus
-                                semper non. Proin egestas egestas ex sed gravida.
-                                Suspendisse commodo nisl sit amet risus volutpat
-                                volutpat. Phasellus vitae turpis a elit tinciduntansan
-                                ornare. Praesent non libero quis libero scelerisque
-                                eleifend. Ut eleifend laoreet vulputate.
-                            </p>
-                            <p class="wizard-mg-ctn">
-                                Duis eu eros vitae risus sollicitudin blandit in non
-                                nisi. Phasellus rhoncus ullamcorper pretium. Etiam et
-                                viverra neque, aliquam imperdiet velit. Nam a
-                                scelerisque justo, id tristique diam. Aenean ut
-                                vestibulum velit, vel ornare augue. Nullam eu est
-                                malesuada, vehicula ex in, maximus massa. Sed sit amet
-                                massa venenatis, tristique orci sed, eleifend arcu.
-                            </p>
-                        </div>
-                        <div class="tab-pane wizard-ctn" id="Assessment">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Phasellus purus sapien, cursus et egestas at, volutpat
-                                sed dolor. Aliquam sollicitudin dui ac euismod
-                                hendrerit. Phasellus quis lobortis dolor. Sed massa
-                                massa, sagittis nec fermentum eu, volutpat non lectus.
-                                Nullam vitae tristique nunc. Aenean vel placerat augue.
-                                Aliquam pharetra mauris neque, sitan amet egestas risus
-                                semper non. Proin egestas egestas ex sed gravida.
-                                Suspendisse commodo nisl sit amet risus volutpat
-                                volutpat. Phasellus vitae turpis a elit tinciduntansan
-                                ornare. Praesent non libero quis libero scelerisque
-                                eleifend. Ut eleifend laoreet vulputate.
-                            </p>
-                            <p class="wizard-mg-ctn">
-                                Duis eu eros vitae risus sollicitudin blandit in non
-                                nisi. Phasellus rhoncus ullamcorper pretium. Etiam et
-                                viverra neque, aliquam imperdiet velit. Nam a
-                                scelerisque justo, id tristique diam. Aenean ut
-                                vestibulum velit, vel ornare augue. Nullam eu est
-                                malesuada, vehicula ex in, maximus massa. Sed sit amet
-                                massa venenatis, tristique orci sed, eleifend arcu.
-                            </p>
-                        </div>
+															"
+														></i>
+													</span>
+												</div>
+												<div class="dw-atc-sn">
+													<a
+														class="btn dw-al-ft"
+														href="#"
+														onclick="downloadMaterials()"
+														>Download all in zip format
+														<i class="notika-icon notika-file"></i
+													></a>
+												</div>
+											</div>
+										</div>
+										<%}%> <%}else{%> NO FILE <%}%>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane wizard-ctn" id="Review">
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								Phasellus purus sapien, cursus et egestas at, volutpat
+								sed dolor. Aliquam sollicitudin dui ac euismod
+								hendrerit. Phasellus quis lobortis dolor. Sed massa
+								massa, sagittis nec fermentum eu, volutpat non lectus.
+								Nullam vitae tristique nunc. Aenean vel placerat augue.
+								Aliquam pharetra mauris neque, sitan amet egestas risus
+								semper non. Proin egestas egestas ex sed gravida.
+								Suspendisse commodo nisl sit amet risus volutpat
+								volutpat. Phasellus vitae turpis a elit tinciduntansan
+								ornare. Praesent non libero quis libero scelerisque
+								eleifend. Ut eleifend laoreet vulputate.
+							</p>
+							<p class="wizard-mg-ctn">
+								Duis eu eros vitae risus sollicitudin blandit in non
+								nisi. Phasellus rhoncus ullamcorper pretium. Etiam et
+								viverra neque, aliquam imperdiet velit. Nam a
+								scelerisque justo, id tristique diam. Aenean ut
+								vestibulum velit, vel ornare augue. Nullam eu est
+								malesuada, vehicula ex in, maximus massa. Sed sit amet
+								massa venenatis, tristique orci sed, eleifend arcu.
+							</p>
+						</div>
+						<div class="tab-pane wizard-ctn" id="Assessment">
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								Phasellus purus sapien, cursus et egestas at, volutpat
+								sed dolor. Aliquam sollicitudin dui ac euismod
+								hendrerit. Phasellus quis lobortis dolor. Sed massa
+								massa, sagittis nec fermentum eu, volutpat non lectus.
+								Nullam vitae tristique nunc. Aenean vel placerat augue.
+								Aliquam pharetra mauris neque, sitan amet egestas risus
+								semper non. Proin egestas egestas ex sed gravida.
+								Suspendisse commodo nisl sit amet risus volutpat
+								volutpat. Phasellus vitae turpis a elit tinciduntansan
+								ornare. Praesent non libero quis libero scelerisque
+								eleifend. Ut eleifend laoreet vulputate.
+							</p>
+							<p class="wizard-mg-ctn">
+								Duis eu eros vitae risus sollicitudin blandit in non
+								nisi. Phasellus rhoncus ullamcorper pretium. Etiam et
+								viverra neque, aliquam imperdiet velit. Nam a
+								scelerisque justo, id tristique diam. Aenean ut
+								vestibulum velit, vel ornare augue. Nullam eu est
+								malesuada, vehicula ex in, maximus massa. Sed sit amet
+								massa venenatis, tristique orci sed, eleifend arcu.
+							</p>
+						</div>
 
-                        <div class="wizard-action-pro">
-                            <ul class="wizard-nav-ac">
-                                <li>
-                                    <a class="button-first a-prevent" href="#"><i
-                                            class="notika-icon notika-more-button"></i></a>
-                                </li>
-                                <li>
-                                    <a class="button-previous a-prevent" href="#"><i
-                                            class="notika-icon notika-back"></i></a>
-                                </li>
-                                <li>
-                                    <a class="button-next a-prevent" href="#"><i
-                                            class="notika-icon notika-next-pro"></i></a>
-                                </li>
-                                <li>
-                                    <a class="button-last a-prevent" href="#"><i
-                                            class="notika-icon notika-more-button"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- </div> -->
+						<div class="wizard-action-pro">
+							<ul class="wizard-nav-ac">
+								<li>
+									<a class="button-first a-prevent" href="#"
+										><i class="notika-icon notika-more-button"></i
+									></a>
+								</li>
+								<li>
+									<a class="button-previous a-prevent" href="#"
+										><i class="notika-icon notika-back"></i
+									></a>
+								</li>
+								<li>
+									<a class="button-next a-prevent" href="#"
+										><i class="notika-icon notika-next-pro"></i
+									></a>
+								</li>
+								<li>
+									<a class="button-last a-prevent" href="#"
+										><i class="notika-icon notika-more-button"></i
+									></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- </div> -->
 </div>
 <!-- Wizard area End-->

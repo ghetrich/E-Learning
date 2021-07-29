@@ -1,0 +1,153 @@
+<!-- Breadcomb area Start-->
+<div class="breadcomb-area">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="breadcomb-list">
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<div class="breadcomb-wp">
+							<div class="breadcomb-icon">
+								<i class="notika-icon notika-windows"></i>
+							</div>
+
+							<div class="breadcomb-ctn">
+								<h2><%=classDetails.name%></h2>
+								<p>
+									Welcome to Free SHS
+									<span class="bread-ntd"
+										>configure a Whole New Community</span
+									>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+						<div class="breadcomb-report">
+							<button
+								data-toggle="tooltip"
+								data-placement="left"
+								title="Download Report"
+								class="btn"
+							>
+								<i class="notika-icon notika-sent"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Breadcomb area End-->
+
+<div class="tab-content custom-menu-content mg-b-15">
+	<%- include("includes/student-subnav") %>
+</div>
+
+<div class="row">
+	<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+		 <div class="ongoing-task-inner notika-shadow ">
+                        <div class="realtime-ctn">
+                            <div class="realtime-title ongoing-hd-wd">
+                                <h2>My Performance</h2>
+                                <p>Magna cursus malesuada lacinia</p>
+                            </div>
+                        </div>
+                        <div class="skill-content-3 ongoing-tsk">
+                            <div class="skill">
+                                <div class="progress">
+                                    <div class="lead-content">
+                                        <p>HTML5 Validation Report</p>
+                                    </div>
+                                    <div class="progress-bar wow fadeInLeft" data-progress="95%" style="width: 95%;" data-wow-duration="1.5s" data-wow-delay="1.2s"> <span>95%</span>
+                                    </div>
+                                </div>
+                                <div class="progress">
+                                    <div class="lead-content">
+                                        <p>Google Chrome Extension</p>
+                                    </div>
+                                    <div class="progress-bar wow fadeInLeft" data-progress="85%" style="width: 85%;" data-wow-duration="1.5s" data-wow-delay="1.2s"><span>85%</span> </div>
+                                </div>
+                                <div class="progress">
+                                    <div class="lead-content">
+                                        <p>Social Internet Projects</p>
+                                    </div>
+                                    <div class="progress-bar wow fadeInLeft" data-progress="70%" style="width: 70%;" data-wow-duration="1.5s" data-wow-delay="1.2s"><span>70%</span> </div>
+                                </div>
+                                <div class="progress">
+                                    <div class="lead-content">
+                                        <p>Bootstrap Admin</p>
+                                    </div>
+                                    <div class="progress-bar wow fadeInLeft" data-progress="60%" style="width: 60%;" data-wow-duration="1.5s" data-wow-delay="1.2s"><span>60%</span> </div>
+                                </div>
+                                <div class="progress progress-bt">
+                                    <div class="lead-content">
+                                        <p>Youtube App</p>
+                                    </div>
+                                    <div class="progress-bar wow fadeInLeft" data-progress="50%" style="width: 50%;" data-wow-duration="1.5s" data-wow-delay="1.2s"><span>50%</span> </div>
+                                </div>
+                            </div>
+                            <div class="view-all-onging">
+                                <a href="#">View All Tasks</a>
+                            </div>
+                        </div>
+        </div>
+	</div>
+	<div class="col-lg-8 col-md-6 col-sm-6 col-xs-12 sm-mg-t-30">
+		<%if(assignments.length > 0){%> <%for(var [index, assignment] of
+		assignments.entries()){%>
+		<div class="tpgp-helper mg-b-15">
+			<div class="tpgp-al-cl">
+				<h3>Assignment <%= assignments.length - index%></h3>
+				<!-- <p>For quoting blocks of content from another source within your document.</p> -->
+
+				<blockquote>
+					<p class="blockquote-nk">
+					
+						<%= trunc(assignment.title, 89, "...")%>
+					</p>
+					<div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+						<%if(new Date(assignment.startsAt) > new Date()){%>
+							<button class="btn btn-cancel btn-sm waves-effect" disabled> Restricted till <%=moment(assignment.startsAt).format("MMM DD, YYYY HH:mm:ss:a")%></button>
+						<%}else{%>
+<a
+							href="/student/submission/<%=classId%>/<%=assignment._id%>"
+							class="
+								btn
+								
+								<%if(new
+								Date(assignment.endsAt)
+								<
+								new Date() && checkIfSubmitted(assignment.submissions,
+								user._id) == (null || undefined)){%>
+								 btn-danger<%}else
+								if(checkIfSubmitted(assignment.submissions,
+								user._id)){%>
+								btn-success<%}else{%>btn-primary<%}%> btn-md
+								waves-effect
+							"
+						>
+							<%if(checkIfSubmitted(assignment.submissions,
+							user._id)){%><i class="notika-icon notika-checked"></i>
+							Submitted on <%=
+							moment(checkIfSubmitted(assignment.submissions,
+							user._id).submissionDate).format("MMMM DD, YYYY ")%> <%}else{%>
+							<%if(new Date(assignment.endsAt) < new Date() ){%><i class="notika-icon notika-close"></i>	<%}%>Due on <%= moment(assignment.endsAt).format("MMMM DD, YYYY")%>
+							<%}%>
+						</a>
+						<%}%>
+						
+					</div>
+				</blockquote>
+			</div>
+		</div>
+		<%}%> <%}else{%> <div class="typography-list typography-mgn">
+                        <h2>No Assignment</h2>
+                        <div class="typography-bd">
+                            <h3>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus.</h3>
+                            <p>Pellentesque lacinia sagittis libero et feugiat. Etiam volutpat adipiscing tortor non luctus. Vivamus venenatis vitae metus et aliquet. Praesent vitae justo purus. In hendrerit lorem nisl, ac lacinia urna aliquet non. Quisque nisi tellus, rhoncus quis est sit amet, lacinia euismod nunc. Aenean nec nibh velit. Fusce quis ante in nisl molestie fringilla. Nunc vitae ante id magna feugiat condimentum. Maecenas sit amet urna massa.</p>
+                            <p class="tab-mg-b-0">Integer eu lectus sollicitudin, hendrerit est ac, sollicitudin nisl. Quisque viverra sodales lectus nec ultrices. Fusce elit dolor, dignissim a nunc id, varius suscipit turpis. Cras porttitor turpis vitae leo accumsan molestie. Morbi vitae luctus leo. Sed nec scelerisque magna, et adipiscing est. Proin lobortis lectus eu sem ullamcorper, commodo malesuada quam fringilla. Curabitur ac nunc dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sagittis enim eu est lacinia, ut egestas ligula imperdiet, ute egestas ligulan imperdiet.</p>
+                        </div>
+                    </div> <%}%>	
+	</div>
+</div>

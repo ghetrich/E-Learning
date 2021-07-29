@@ -1,0 +1,320 @@
+<!-- Breadcomb area Start-->
+<div class="breadcomb-area">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="breadcomb-list">
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<div class="breadcomb-wp">
+							<div class="breadcomb-icon">
+								<i class="notika-icon notika-windows"></i>
+							</div>
+
+							<div class="breadcomb-ctn">
+								<h2><%=classDetails.name%></h2>
+								<p>
+									Welcome to Free SHS
+									<span class="bread-ntd"
+										>configure a Whole New Community</span
+									>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+						<div class="breadcomb-report">
+							<button
+								data-toggle="tooltip"
+								data-placement="left"
+								title="Download Report"
+								class="btn"
+							>
+								<i class="notika-icon notika-sent"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Breadcomb area End-->
+
+<div class="tab-content custom-menu-content mg-b-15">
+	<%- include("includes/student-subnav") %>
+</div>
+
+<div class="row">
+	<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+<div class="widget-tabs-int sm-res-mg-t-30 tb-res-mg-t-30 tb-res-ds-n dk-res-ds">
+                        <div class="contact-hd tm-activity">
+                            <h2>Assignment</h2>
+                            <p><%=assignment.title%></p>
+                        </div>
+                        <div class="widget-tabs-list">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#home">Instructions</a></li>
+                                <li><a data-toggle="tab" href="#menu1">Submission</a></li>
+                              
+                            </ul>
+                            <div class="tab-content">
+                                <div id="home" class="tab-pane fade in active">                                 
+                                    <div class="tab-ctn">
+                                        <p>Total Points : <%= assignment.totalPoints%></p>
+                                          <div class="file-download-system">
+                            <div class="dw-st-ic mg-t-20">
+                                <div class="dw-atc-sn">
+                                    <span><i class="notika-icon notika-paperclip"></i> Assignment <i class="notika-icon notika-arrow-right atc-sign"></i></span>
+                                </div>
+                                <div class="dw-atc-sn">
+                                    <a class="btn dw-al-ft" href="#">Download Assignment <i class="notika-icon notika-file"></i></a>
+                                </div>                              
+                            </div>
+                    </div>
+                                        <p class="typography-pre-line wrap_link" >
+                                           <%=assignment.instructions%> 
+                                        </p>
+                                       
+                                    </div>
+                                </div>
+                                <div id="menu1" class="tab-pane fade">                                
+                                    <div class="tab-ctn">
+                                        <form id="submissionForm">
+                                        <%if(new Date() < new Date(assignment.endsAt) ){%>
+                                            <div id="dropzone1" class="multi-uploader-cs">
+								<div class="dropzone1 dropzone dropzone-nk needsclick" action="/upload" id="dropFile">
+									<div class="dz-message needsclick download-custom">
+										<i class="notika-icon notika-cloud"></i>
+										<h2>Drop files here or click to upload.</h2>
+
+										<p>
+											<span class="note needsclick">(This question file must be in a pdf, docx,
+												... format or zipped. Any other file format
+												will <strong>not</strong> be allowed.)</span>
+										</p>
+									</div>
+								</div>
+							            </div>
+                                    <%if(submission){%>
+                                    <div class="contact-btn mg-t-30">
+						                <button type="button" class="button btn" id="editSubmissionForm">
+					    		                    Change Submission
+						                </button>
+				    	            </div>
+                                    <%}else{%>
+                                        <div class="contact-btn mg-t-30">
+                                        <button type="submit" class="button btn" form="submissionForm">
+                                            Submit Work
+                                        </button>
+                                    </div>
+                            <%}%>
+                                        <%}else{%>
+                                            <%if(submission){%>
+  <div class="file-download-system">
+                            <div class="dw-st-ic mg-t-20">
+                                <div class="dw-atc-sn">
+                                    <span><i class="notika-icon notika-paperclip"></i> submission <i class="notika-icon notika-arrow-right atc-sign"></i></span>
+                                </div>
+                                <div class="dw-atc-sn">
+                                    <a class="btn dw-al-ft" href="#">Download submission <i class="notika-icon notika-file"></i></a>
+                                </div>                              
+                            </div>
+                    </div>
+
+                                                <%}else{%>
+No
+
+                                              <%}%>
+                                            <%}%>
+                                                </form>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+    </div>
+    <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12">
+        <div class="normal-table-list ">
+                        <div class="basic-tb-hd">
+                            <h2>Submission Status</h2>
+                            <p>Tables with borders on all possible sides of the Table and Cells (<code>.table-bordered</code>).</p>
+                        </div>
+                        <div class="bsc-tbl-bdr">
+                            <table class="table table-bordered table-striped table-hover">
+                                <!-- <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Username</th>
+                                        <th>Nickname</th>
+                                    </tr>
+                                </thead> -->
+                                <tbody>
+                                    <tr>
+                                       
+                                        <td >Submission Status</td>
+                                        <%if(submission && submission.isGraded){%><td class="bg-success">Submitted</td> <%}else if(submission){%> <td class="bg-success">Submitted For Grading</td> <%}else{%><td >No Submission</td><%}%>
+                                    </tr>
+                                    <tr>
+                                       
+                                        <td>Grading Status</td>
+                                        <%if(submission && submission.isGraded){%>
+                                        <td class="bg-success">Graded</td>
+                                            <%}else{%> <td>Not Graded</td> <%}%>
+                                    </tr>
+                                    <tr>
+                                       
+                                        <td>Due Date</td>
+
+                                        <td ><%= moment(assignment.endsAt).format("MMM DD, YYYY HH:mm:ss:a")%></td>
+                                    </tr>
+                                    <tr>
+                                      
+                                        <td>Time Remaining</td>
+                                       
+                                            <%var now = moment(new Date())%>
+                                              <%var endsAt = moment(assignment.endsAt)%>
+                                          
+                                 <%if(submission){%>
+                                    <%var submittedAt = moment(submission.submissionDate)%>
+                                    <td>
+                                 Assignment Submitted 
+    <%if(moment.duration(endsAt.diff(submittedAt)).days() > 0){%>  
+<%= moment.duration(endsAt.diff(submittedAt)).days()%> day<%if(moment.duration(endsAt.diff(submittedAt)).days() > 1){%>s<%}%>
+                   <%}%>                  
+<%if(moment.duration(endsAt.diff(submittedAt)).hours() > 0){%>  
+                                    <%= moment.duration(endsAt.diff(submittedAt)).hours()%> hour<%if(moment.duration(endsAt.diff(submittedAt)).hours() > 1){%>s<%}%>
+                                    <%}%>
+                                    <%if(moment.duration(endsAt.diff(submittedAt)).minutes() > 0){%>  
+                                    <%= moment.duration(endsAt.diff(submittedAt)).minutes()%> min<%if(moment.duration(endsAt.diff(submittedAt)).minutes() > 1){%>s<%}%>
+                                    <%}%>
+                                    <%if(moment.duration(endsAt.diff(submittedAt)).seconds() > 0){%>  
+                                    <%= moment.duration(endsAt.diff(submittedAt)).seconds()%> sec<%if(moment.duration(endsAt.diff(submittedAt)).seconds() > 1){%>s<%}%>
+                                    <%}%>
+early </td>
+                                 <%}else if(submission == undefined && new Date(assignment.endsAt) < new Date()){%>
+                                    <td class="bg-danger">
+                                 Missed submission time <%=moment(assignment.endsAt).fromNow()%> </td><%}else{%>
+                                     <td>
+                                 <%if(moment.duration(endsAt.diff(now)).days() > 0){%>  
+                                    <%= moment.duration(endsAt.diff(now)).days()%> day<%if(moment.duration(endsAt.diff(now)).days() > 1){%>s<%}%>
+                                    <%}%>
+
+                                    <%if(moment.duration(endsAt.diff(now)).hours() > 0){%>  
+                                    <%= moment.duration(endsAt.diff(now)).hours()%> hour<%if(moment.duration(endsAt.diff(now)).hours() > 1){%>s<%}%>
+                                    <%}%>
+
+                                    <%if(moment.duration(endsAt.diff(now)).minutes() > 0){%>  
+                                    <%= moment.duration(endsAt.diff(now)).minutes()%> minute<%if(moment.duration(endsAt.diff(now)).minutes() > 1){%>s<%}%>
+                                    <%}%>
+                                    
+                               </td>
+                                    <%}%>
+                                
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+const submissionForm = document.getElementById("submissionForm");
+const editSubmissionForm = document.getElementById("editSubmissionForm")
+const endsAt = `<%= assignment.endsAt%>`
+
+submissionForm.addEventListener("submit", async(e)=>{
+e.preventDefault();
+
+if (new Date(endsAt) < new Date()) {
+  window.location.reload();  
+}else{
+    
+		const submission = $("#dropFile").get(0).dropzone.getAcceptedFiles();
+
+		let data = new FormData();
+		data.append("submission", submission[0], submission[0].name);
+
+        const submit = await fetch(`<%=baseUrl %>/exam/submissions/<%= assignment._id %>`, {
+			method: "PUT",
+			body: data,
+		}).then(response => response.json());
+
+		if (submit.status === "OK") {
+			setTimeout(function () {
+				swal({
+					title: "Done",
+					text: "Assignment have been submitted.",
+					type: "success",
+				})
+					.then(() => {
+						window.location.reload();
+					})
+					.catch(() => {
+						window.location.reload();
+					});
+			}, 1000);
+		} else {
+			alert(submit.error);
+			console.log(submit.error);
+			$("#error-dialog").show();
+		}
+}
+
+// alert(endsAt);
+})
+
+editSubmissionForm.addEventListener("click", async e => {
+    
+  if (new Date(endsAt) < new Date()) {
+  window.location.reload();  
+}else{
+    
+    let getSubmission = "<%= submission._id %>"
+    let setSubmission
+    if (getSubmission != undefined) {
+       setSubmission = getSubmission
+
+    }
+
+
+		const submission = $("#dropFile").get(0).dropzone.getAcceptedFiles();
+
+		let data = new FormData();
+		data.append("submission", submission[0], submission[0].name);
+        console.log(getSubmission);
+        data.append("submissionId", setSubmission)
+
+        const submit = await fetch(`<%=baseUrl %>/exam/submissions/change/<%= assignment._id %>`, {
+			method: "PUT",
+			body: data,
+		}).then(response => response.json());
+
+		if (submit.status === "OK") {
+			setTimeout(function () {
+				swal({
+					title: "Done",
+					text: "Submission Changed.",
+					type: "success",
+				})
+					.then(() => {
+						window.location.reload();
+					})
+					.catch(() => {
+						window.location.reload();
+					});
+			}, 1000);
+		} else {
+			alert(submit.error);
+			console.log(submit.error);
+			$("#error-dialog").show();
+		}
+}
+  
+})
+
+</script>

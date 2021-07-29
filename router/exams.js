@@ -71,7 +71,7 @@ Router.route("/new/:classId").post(
 Router.route("/submissions/:examId").put(
 	uploadAnswers.single("submission"),
 	(req, res) => {
-		const { student } = req.body;
+		const student = req.user._id;
 		// const student = req.user;
 		const examId = req.params.examId;
 		let submission;
@@ -95,7 +95,54 @@ Router.route("/submissions/:examId").put(
 		})
 			.then(done => {
 				console.log(done);
+				return res.status(200).send({
+					status: "OK",
+					msg: "successful ",
+				});
+			})
+			.catch(err => {
+				console.log(err);
 				return res.status(500).send({
+					status: "BAD",
+					msg: "Unsuccessful! Something went wrong " + err,
+				});
+			});
+	}
+);
+Router.route("/submissions/change/:examId").put(
+	uploadAnswers.single("submission"),
+	(req, res) => {
+		const student = req.user._id;
+		const { submissionId } = req.body;
+		const examId = req.params.examId;
+		let submission;
+
+		if (!examId) {
+			return res
+				.status(404)
+				.send({ status: "BAD", msg: "Unsuccessful! Required fields" });
+		}
+
+		if (req.file) {
+			submission = req.file.path;
+		} else {
+			return res
+				.status(404)
+				.send({ status: "BAD", msg: "Please upload the question file" });
+		}
+
+		Exam.updateOne(
+			{ _id: examId, "submissions._id": submissionId },
+			{
+				$set: {
+					"submissions.$.submission": submission,
+					"submissions.$.submissionDate": new Date(),
+				},
+			}
+		)
+			.then(done => {
+				console.log(done);
+				return res.status(200).send({
 					status: "OK",
 					msg: "successful ",
 				});
@@ -162,15 +209,15 @@ Router.route("/:examId/grade/:studentId").put(
 		}
 		// console.log(req.file);
 		// console.log(req.body);
-		let pushScript={};
+		let pushScript = {};
 		if (req.file) {
 			markedScript = req.file.path;
-			pushScript =  {
-					"submissions.$.markedScript": {
-						script: markedScript,
-						submittedBy: req.user.id,
-					},
-				}
+			pushScript = {
+				"submissions.$.markedScript": {
+					script: markedScript,
+					submittedBy: req.user.id,
+				},
+			};
 		}
 
 		Exam.updateOne(
@@ -196,5 +243,20 @@ Router.route("/:examId/grade/:studentId").put(
 			});
 	}
 );
+
+Router.route("/class/:classId/assignments").get((req, res) => {
+	const classId = req.params.classId;
+
+	Exam.find({ class: classId })
+		.then(assignments => {
+			return res.status(200).send(assignments);
+		})
+		.catch(err => {
+			console.log(err);
+			return res
+				.status(500)
+				.send({ status: "BAD", msg: "Server error: " + err });
+		});
+});
 
 module.exports = Router;

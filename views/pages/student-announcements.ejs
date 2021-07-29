@@ -35,21 +35,10 @@
 <!-- Breadcomb area End-->
 
  <div class="tab-content custom-menu-content mg-b-15">
+
+	<%- include("includes/student-subnav") %>
                        
-                        <div id="Courses" class="tab-pane <% if(currentRoute === 'Classes'){%> active <%}%> notika-tab-menu-bg animated flipInX">
-                            <ul class="notika-main-menu-dropdown">
-                                <li><a href="/student/topics/<%=classId%>">Lessons</a>
-                                </li>
-								<li><a href="/student/<%=classId%>/announcements/">Announcements</a>
-                                </li>
-								<li><a href="/student/classes">Quizzes</a>
-                                </li>
-								<li><a href="/student/classes">My Courses</a>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                      
+                                         
                     </div>
 
 <%if(announcements.length > 0){%>

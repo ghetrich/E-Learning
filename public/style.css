@@ -5704,8 +5704,22 @@ white-space: pre-line;
 	box-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15)
 }
 
+.mg-b-min{
+margin-bottom: 15px !important;
+}
+
 @media screen and (max-width: 770px) {
 	.sm-mg-t-30 {
 		margin-top: 30px !important;
+	}
+	.sm-mg-t-20 {
+		margin-top: 20px !important;
+	}
+	.sm-mg-t-10 {
+		margin-top: 10px !important;
+	}
+
+	.sm-mg-t-15 {
+		margin-top: 15px !important;
 	}
 }

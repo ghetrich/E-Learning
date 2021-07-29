@@ -5,13 +5,18 @@
 	</div>
 	<div class="widget-tabs-list">
 		<ul class="nav nav-tabs">
-			<li class="active">
+			<li class="active"><a data-toggle="tab" href="#Submissions">Submissions</a></li>
+			<li >
 				<a data-toggle="tab" href="#Instructions">Instructions</a>
 			</li>
-			<li><a data-toggle="tab" href="#Submissions">Submissions</a></li>
+			<li >
+				<a data-toggle="tab" href="#more">More</a>
+			</li>
+			
+			
 		</ul>
 		<div class="tab-content tab-custom-st">
-			<div id="Instructions" class="tab-pane fade in active">
+			<div id="Instructions" class="tab-pane fade">
 				<div class="tab-ctn">
 					<p class="typography-pre-line"><%=exam.instructions%></p>
 					<div class="file-download-system">
@@ -35,7 +40,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="Submissions" class="tab-pane fade">
+			<div id="Submissions" class="tab-pane fade in active">
 				<div class="tab-ctn">
 <%if(exam.submissions.length > 0){%>
 					<div class="data-table-area">
@@ -93,7 +98,8 @@
 															data-placement="left"
 															title="Edit Grade"
 															class="btn btn-sm"
-															
+															<%if(  new Date() < new Date(exam.endsAt)){%> disabled <%}%>
+														
 														>
 															<i
 																class="notika-icon notika-menu"
@@ -104,13 +110,13 @@
 		<form id="gradeForm<%=index%>" data-student="<%=submission._id%>" data-id="<%=index%>" >
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
-			<div class="modal-header">
+			<!-- <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">
 					&times;
 				</button>
-			</div>
+			</div> -->
 			<div class="modal-body">
-				<h2>Add Grade</h2>
+				<h2>Edit Grade</h2>
 				<p>
 					faucibus at, scelerisque quis, convallis in, nisi. Cras sagittis.
 				</p>
@@ -206,7 +212,21 @@
 						</div>
 					</div>
 
-<%}%>
+<%}else{%>
+	<div class="typography-list typography-mgn">
+                        <h2>No Submission</h2>
+                        <div class="typography-bd">
+                            <h3>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus.</h3>
+                            <p>Pellentesque lacinia sagittis libero et feugiat. Etiam volutpat adipiscing tortor non luctus. Vivamus venenatis vitae metus et aliquet. Praesent vitae justo purus. In hendrerit lorem nisl, ac lacinia urna aliquet non. Quisque nisi tellus, rhoncus quis est sit amet, lacinia euismod nunc. Aenean nec nibh velit. Fusce quis ante in nisl molestie fringilla. Nunc vitae ante id magna feugiat condimentum. Maecenas sit amet urna massa.</p>
+                            <p class="tab-mg-b-0">Integer eu lectus sollicitudin, hendrerit est ac, sollicitudin nisl. Quisque viverra sodales lectus nec ultrices. Fusce elit dolor, dignissim a nunc id, varius suscipit turpis. Cras porttitor turpis vitae leo accumsan molestie. Morbi vitae luctus leo. Sed nec scelerisque magna, et adipiscing est. Proin lobortis lectus eu sem ullamcorper, commodo malesuada quam fringilla. Curabitur ac nunc dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sagittis enim eu est lacinia, ut egestas ligula imperdiet, ute egestas ligulan imperdiet.</p>
+                        </div>
+                    </div>
+					<%}%>
+				</div>
+			</div>
+			<div id="more" class="tab-pane fade">
+				<div class="tab-ctn"> 
+					Marking scheme
 				</div>
 			</div>
 		</div>
@@ -219,37 +239,6 @@
 
 <script type="text/javascript">
 
-// const setGrade =  e  => { 
-			
-// 		const grade = document.getElementById(e.grade).value
-
-// 		const script = $("#dropFile").get(0).dropzone.getAcceptedFiles();
-
-// 		let data = new FormData();
-
-// 		data.append("grade", grade);
-// 		console.log(script);	
-
-// 	if (script.length > 0) {		
-// 			data.append("markedScript", script[0], script[0].name);
-// 	}
-
-
-
-	
-// 		const saveGrade = await fetch(`<%=baseUrl %>/exam/<%=exam._id%>/grade/${e.id}`, {
-// 			method: "PUT",
-// 			body: data,
-// 		}).then(response => response.json());
-	
-
-		
-
-// 	return false;
-// }
-
-
-
 $("form").on('submit', async e =>{
 
 	e.preventDefault();
@@ -261,7 +250,7 @@ $("form").on('submit', async e =>{
 		let data = new FormData();
 
 		data.append("grade", grade);
-		// console.log({script,student});	
+		console.log(window.history);	
 
 	if (script.length > 0) {		
 			data.append("markedScript", script[0], script[0].name);
@@ -272,6 +261,25 @@ $("form").on('submit', async e =>{
 			body: data,
 		}).then(response => response.json());
 
+		if (saveGrade.status === "OK") {
+			setTimeout(function () {
+				swal({
+					title: "Graded",
+					text: "Grade Updated.",
+					type: "success",
+				})
+					.then(() => {
+						window.location.reload();
+					})
+					.catch(() => {
+						window.location.reload();
+					});
+			}, 1000);
+		} else {
+			alert(saveGrade.error);
+			console.log(saveGrade.error);
+			$("#error-dialog").show();
+		}
 	
 })
 </script>
